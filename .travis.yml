@@ -14,11 +14,7 @@ before_script:
   - ./flutter/bin/flutter doctor
 script:
   - ./flutter/bin/flutter test
-
-deploy:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      flutter build apk
-    fi
+  - ./flutter/bin/flutter build apk
 
 cache:
   directories:
