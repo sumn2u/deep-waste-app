@@ -1,6 +1,8 @@
 # Deep Waste
 
-An app that use [Deep Waste Model](https://www.kaggle.com/code/sumn2u/garbage-classification) to classify the waste.
+An app that use [Deep Waste Model](https://www.kaggle.com/code/sumn2u/garbage-classification) to classify the waste. 
+
+The REST API that is used in this app can be found [here](https://github.com/sumn2u/ml_rest_api). 
 
 ## Demo
 ![](Demo.gif)
