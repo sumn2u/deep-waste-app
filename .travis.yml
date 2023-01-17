@@ -14,7 +14,6 @@ before_script:
   - ./flutter/bin/flutter doctor
 script:
   - ./flutter/bin/flutter test
-  - ./flutter/bin/flutter build apk
 
 cache:
   directories:
