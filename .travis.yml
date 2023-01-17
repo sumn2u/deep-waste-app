@@ -16,7 +16,7 @@ script:
   - ./flutter/bin/flutter test
 
 deploy:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       flutter build apk
     fi
 
