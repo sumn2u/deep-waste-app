@@ -1,48 +1,61 @@
 import 'dart:io';
-import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
+import 'package:tflite/tflite.dart';
 import 'alert.dart';
 
-class DisplayPicture extends StatelessWidget {
-  DisplayPicture({Key key, this.image, this.context}) : super(key: key);
+class DisplayPicture extends StatefulWidget {
   final File image;
-  final BuildContext context;
+  const DisplayPicture({Key key,  @required this.image }) : super(key: key);
 
-  uploadImage() async {
-    EasyLoading.show(status: 'Predicting...');
-    String fileName = image.path.split('/').last;
-    FormData data = FormData.fromMap({
-      "file": await MultipartFile.fromFile(
-        image.path,
-        filename: fileName
-      ),
-      "classifiers": "['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']"
-    });
-    Dio dio = new Dio();
+  @override
+  _DisplayPictureState createState() => _DisplayPictureState(image: this.image);
+}
+
+class _DisplayPictureState extends State <DisplayPicture> {
+  final File image;
+  _DisplayPictureState({this.image});
+  String prediction;
+
+  @override
+  void initState() {
+    super.initState();
+    loadModel();
+
+  }
+
+  Future loadModel() async {
+    Tflite.close();
+    String absPathModelPath = "assets/models/garbage_model.tflite";
+    String classLabel = "assets/labels/labels.txt";
     try {
-      var res = await dio.post('http://167.86.119.145:8888/api/model/predict', data: data);
-      EasyLoading.dismiss();
-      if (res.statusCode != 200) {
-          showAlert(
-              bContext: context,
-              title: "Error Uploading!",
-              content: "Server Side Error.");
-        } else {
-          var result = jsonDecode(res.toString());
-          showAlert(bContext: context, title: "Done!", content: "Predicted ${result['label']} with ${result['prediction']}% confidence.");
-        }
-        } on DioError catch (e) { 
-          EasyLoading.dismiss();
-          if (e.type == DioErrorType.RESPONSE) {
-              print(e.response);
-            return;
-          }
-          print('error: $e');
-      }
+      await Tflite.loadModel(
+      model: absPathModelPath,
+      labels: classLabel
+    );
+    } on PlatformException {
+      print("Couldn't load model");
+    }
+  }
+  double getNumber(double input, {int precision = 2}){
+    return double.parse('$input'.substring(0, '$input'.indexOf('.') + precision + 1));
+  }
+  uploadImage(context) async {
+    EasyLoading.show(status: 'Predicting...');
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      imageMean: 0.0,   // defaults to 117.0
+      imageStd: 255.0,  // defaults to 1.0
+      numResults: 1,    // defaults to 5
+      threshold: 0.2,   // defaults to 0.1
+      asynch: true  
+    );
+
+    var result = output[0];
+    EasyLoading.dismiss();
+    var confidence = getNumber(result['confidence'], precision: 2);
+    showAlert(bContext: context, title: "Done!", content: "Predicted ${result['label']} with $confidence% confidence.");
   }
 
   @override
@@ -89,7 +102,7 @@ class DisplayPicture extends StatelessWidget {
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    onPressed: () => {uploadImage()},
+                    onPressed: () => {uploadImage(context)},
                   ),
                 )
               ],

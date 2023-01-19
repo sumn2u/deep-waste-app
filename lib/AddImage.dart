@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'alert.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'DisplayPicture.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 class AddImage extends StatefulWidget {
@@ -34,7 +32,6 @@ class _AddImageState extends State<AddImage> {
             MaterialPageRoute(
                 builder: (context) => DisplayPicture(
                       image: _image,
-                      context: context,
                     )));
       }
     } catch (e) {
@@ -62,7 +59,6 @@ class _AddImageState extends State<AddImage> {
           MaterialPageRoute(
               builder: (context) => DisplayPicture(
                     image: _image,
-                    context: context,
                   )));
     }
   }
