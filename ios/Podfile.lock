@@ -2,33 +2,35 @@ PODS:
   - Flutter (1.0.0)
   - image_picker (0.0.1):
     - Flutter
-  - path_provider_ios (0.0.1):
+  - TensorFlowLiteC (2.2.0)
+  - tflite (1.1.2):
     - Flutter
-  - pytorch_lite (0.0.1):
-    - Flutter
+    - TensorFlowLiteC
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
-  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
-  - pytorch_lite (from `.symlinks/plugins/pytorch_lite/ios`)
+  - TensorFlowLiteC (= 2.2.0)
+  - tflite (from `.symlinks/plugins/tflite/ios`)
+
+SPEC REPOS:
+  trunk:
+    - TensorFlowLiteC
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
-  path_provider_ios:
-    :path: ".symlinks/plugins/path_provider_ios/ios"
-  pytorch_lite:
-    :path: ".symlinks/plugins/pytorch_lite/ios"
+  tflite:
+    :path: ".symlinks/plugins/tflite/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
-  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
-  pytorch_lite: b48d670a263859bd4b2d89f01bd40ef76bf0bfcf
+  TensorFlowLiteC: b3ab9e867b0b71052ca102a32a786555b330b02e
+  tflite: 7acd11db0915e2d90ab90474413068568eb605f0
 
-PODFILE CHECKSUM: af6b891fb448119e2e3d0a226fcad7567aa13204
+PODFILE CHECKSUM: 75a4644aeccbc5c3f6a144d735a5a4b36a65140f
 
 COCOAPODS: 1.11.3
