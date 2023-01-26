@@ -1,5 +1,6 @@
 import 'package:deep_waste/components/categories.dart';
 import 'package:deep_waste/components/home_header.dart';
+import 'package:deep_waste/components/progress.dart';
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeHeader(),
           SizedBox(height: getProportionateScreenHeight(15)),
           Categories(),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          Progress()
         ]))));
   }
 }
