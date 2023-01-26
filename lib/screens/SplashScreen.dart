@@ -1,14 +1,15 @@
-import 'package:deep_waste/app_properties.dart';
+import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/screens/OnboardingScreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
+  static String routeName = "/splash_screen";
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen>
-  with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   Animation<double> opacity;
   AnimationController controller;
 
@@ -41,7 +42,8 @@ class _SplashScreenState extends State<SplashScreen>
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/background.png'), fit: BoxFit.cover)),
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover)),
       child: Container(
         decoration: BoxDecoration(color: transparentGreen),
         child: SafeArea(
@@ -54,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
                       child: new Image.asset('assets/images/logo.png')),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(30),
                   child: RichText(
                     text: TextSpan(
                         style: TextStyle(color: Colors.black),

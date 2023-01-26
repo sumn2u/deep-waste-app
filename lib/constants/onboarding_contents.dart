@@ -4,9 +4,9 @@ class OnboardingContents {
   final String desc;
 
   OnboardingContents({
-      this.title,
-      this.image,
-      this.desc,
+    this.title,
+    this.image,
+    this.desc,
   });
 }
 
@@ -19,7 +19,8 @@ List<OnboardingContents> contents = [
   OnboardingContents(
     title: "",
     image: "assets/images/onboarding2.png",
-    desc: "Identification of waste is an important step in managing waste effectively.",
+    desc:
+        "Identification of waste is an important step in managing waste effectively.",
   ),
   OnboardingContents(
     title: "",

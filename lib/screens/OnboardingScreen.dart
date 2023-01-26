@@ -1,6 +1,6 @@
-import 'package:deep_waste/AddImage.dart';
-import 'package:deep_waste/onboarding_contents.dart';
-import 'package:deep_waste/size_config.dart';
+import 'package:deep_waste/constants/onboarding_contents.dart';
+import 'package:deep_waste/screens/HomeScreen.dart';
+import 'package:deep_waste/constants/size_config.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -47,8 +47,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double width = SizeConfig.screenW;
-    double height = SizeConfig.screenH;
+    double width = SizeConfig.screenWidth;
+    double height = SizeConfig.screenHeight;
 
     return Scaffold(
       backgroundColor: colors[_currentPage],
@@ -119,9 +119,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddImage()));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             },
                             child: const Text("START"),
                             style: ElevatedButton.styleFrom(

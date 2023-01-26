@@ -44,7 +44,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App needs access to the photo library for uploading images</string>
 	<key>NSCameraUsageDescription</key>
-	<string>To capture photo please grant camera access</string>
+	<string>To scan item please grant camera access</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 </dict>
