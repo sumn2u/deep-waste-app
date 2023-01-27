@@ -18,7 +18,18 @@ The REST API that is used in this app can be found [here](https://github.com/sum
 The main classes are under `lib` directory.
 
 directory | description
-:--: | :--
+
+    lib
+    ├── ...
+    ├── components                   # reusable components
+    ├── constants                    # constants used in project
+    ├── models                     # data structure to define the shape of data
+    ├── screens                    # different view used in the app
+    ├── controller                    # an intermidiate between view and model responsible for updating model and manupluates the view of the app    
+    ├── test                    # Test files (alternatively `spec` or `tests`)
+    └── routes.dart             # maps urls for navigation
+    └── ...
+
 
 
 # Contributing

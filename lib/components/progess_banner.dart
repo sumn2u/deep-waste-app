@@ -1,5 +1,8 @@
 import 'package:deep_waste/constants/size_config.dart';
+import 'package:deep_waste/controller/item_notifier.dart';
+import 'package:deep_waste/controller/reward_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProgressBanner extends StatelessWidget {
   const ProgressBanner({
@@ -8,6 +11,13 @@ class ProgressBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ItemNotifier itemNotifier = Provider.of<ItemNotifier>(context);
+    RewardNotifier rewardNotifier = Provider.of<RewardNotifier>(context);
+    var items = itemNotifier.items;
+    int totalPoints =
+        items.fold(0, (sum, item) => (item.count * item.points) + sum);
+    var activeReward = rewardNotifier.getActiveReward(totalPoints);
+
     return Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: getProportionateScreenWidth(20)),
@@ -18,6 +28,20 @@ class ProgressBanner extends StatelessWidget {
         decoration: BoxDecoration(
           color: Color(0xFF4A3298),
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(3, 3), // changes position of shadow
+            ),
+            BoxShadow(
+              color: Colors.white,
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),
+          ],
         ),
         child: Row(children: <Widget>[
           Expanded(
@@ -27,11 +51,11 @@ class ProgressBanner extends StatelessWidget {
               Text.rich(TextSpan(
                 style: TextStyle(color: Colors.white),
                 children: [
-                  TextSpan(text: "Plastic recycled:\n"),
+                  TextSpan(text: "Waste managed:\n"),
                 ],
               )),
               Text.rich(TextSpan(
-                text: "4 / 10 items",
+                text: "$totalPoints / ${activeReward.points} points",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: getProportionateScreenWidth(16),
@@ -55,8 +79,7 @@ class ProgressBanner extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Image.asset('assets/images/Bronze.png',
-                height: 100, width: 350),
+            child: Image.asset(activeReward.imageURL, height: 100, width: 350),
           )
         ]));
   }

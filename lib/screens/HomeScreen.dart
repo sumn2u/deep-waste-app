@@ -1,4 +1,5 @@
 import 'package:deep_waste/components/categories.dart';
+import 'package:deep_waste/components/history.dart';
 import 'package:deep_waste/components/home_header.dart';
 import 'package:deep_waste/components/progress.dart';
 import 'package:deep_waste/constants/app_properties.dart';
@@ -27,7 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: getProportionateScreenHeight(15)),
           Categories(),
           SizedBox(height: getProportionateScreenHeight(20)),
-          Progress()
+          Progress(),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          History(),
+          SizedBox(width: getProportionateScreenWidth(20)),
         ]))));
   }
 }

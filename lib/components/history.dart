@@ -1,9 +1,9 @@
-import 'package:deep_waste/components/progess_banner.dart';
-import 'package:deep_waste/constants/size_config.dart';
+import 'package:deep_waste/components/items.dart';
 import 'package:flutter/material.dart';
+import 'package:deep_waste/constants/size_config.dart';
 
-class Progress extends StatelessWidget {
-  const Progress({
+class History extends StatelessWidget {
+  const History({
     Key key,
   }) : super(key: key);
 
@@ -18,7 +18,7 @@ class Progress extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Progress",
+                  "Items",
                   style: TextStyle(
                     fontSize: getProportionateScreenWidth(18),
                     fontWeight: FontWeight.w600,
@@ -27,7 +27,7 @@ class Progress extends StatelessWidget {
                 )
               ],
             ),
-            ProgressBanner()
+            Items()
           ],
         ));
   }

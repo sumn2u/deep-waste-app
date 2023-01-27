@@ -1,5 +1,7 @@
 // import 'package:deep_waste/screens/OnboardingScreen.dart';
 import 'package:deep_waste/controller/category_notifier.dart';
+import 'package:deep_waste/controller/item_notifier.dart';
+import 'package:deep_waste/controller/reward_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:deep_waste/routes.dart';
 import 'package:deep_waste/screens/SplashScreen.dart';
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => CategoryNotifier()),
+          ChangeNotifierProvider(create: (_) => ItemNotifier()),
+          ChangeNotifierProvider(create: (_) => RewardNotifier()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
