@@ -18,6 +18,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
+          top: getProportionateScreenWidth(5),
           left: getProportionateScreenWidth(20),
           bottom: getProportionateScreenWidth(10)),
       child: SizedBox(

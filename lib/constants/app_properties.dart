@@ -23,3 +23,5 @@ screenAwareSize(int size, BuildContext context) {
   double baseHeight = 640.0;
   return size * MediaQuery.of(context).size.height / baseHeight;
 }
+
+const String kItemName = "Please enter item name";

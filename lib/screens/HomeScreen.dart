@@ -32,6 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: getProportionateScreenHeight(20)),
           History(),
           SizedBox(width: getProportionateScreenWidth(20)),
-        ]))));
+        ]))),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          elevation: 0.0,
+          backgroundColor: Color(0xff69c0dc),
+          child: const Icon(Icons.document_scanner_sharp),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 }
