@@ -2,6 +2,7 @@
 import 'package:deep_waste/controller/category_notifier.dart';
 import 'package:deep_waste/controller/item_notifier.dart';
 import 'package:deep_waste/controller/reward_notifier.dart';
+import 'package:deep_waste/controller/tips_notifier.dart';
 import 'package:deep_waste/controller/user_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:deep_waste/routes.dart';
@@ -23,11 +24,16 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ItemNotifier()),
           ChangeNotifierProvider(create: (_) => RewardNotifier()),
           ChangeNotifierProvider(create: (_) => UserNotifier()),
+          ChangeNotifierProvider(create: (_) => TipsNotifier()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Deep Waste',
           theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black //here you can give the text color
+                ),
             brightness: Brightness.light,
             canvasColor: Colors.transparent,
             primarySwatch: Colors.blue,

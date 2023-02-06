@@ -6,17 +6,17 @@ class RewardNotifier extends ChangeNotifier {
   List<Reward> _rewards = [
     Reward(
         id: "1001",
-        name: "bronze",
+        name: "Bronze Cup",
         imageURL: "assets/images/Bronze.png",
         points: 250),
     Reward(
         id: "1002",
-        name: "silver",
+        name: "Silver Cup",
         imageURL: "assets/images/Silver.png",
         points: 1200),
     Reward(
         id: "1003",
-        name: "gold",
+        name: "Gold Cup",
         imageURL: "assets/images/Gold.png",
         points: 2000),
   ];

@@ -31,6 +31,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.6
+  expandable: ^5.0.1
   provider: ^5.0.0 #for State management
 dev_dependencies:
   flutter_launcher_icons: ^0.11.0

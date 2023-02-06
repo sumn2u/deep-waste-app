@@ -1,6 +1,9 @@
 import 'package:deep_waste/components/progess_banner.dart';
 import 'package:deep_waste/constants/size_config.dart';
+import 'package:deep_waste/controller/item_notifier.dart';
+import 'package:deep_waste/screens/RewardsScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Progress extends StatelessWidget {
   const Progress({
@@ -9,9 +12,13 @@ class Progress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ItemNotifier itemNotifier = Provider.of<ItemNotifier>(context);
+    var collectedItems = itemNotifier.getCollectedItem();
+
     return Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      child: InkWell(
         child: Column(
           children: [
             Row(
@@ -29,6 +36,14 @@ class Progress extends StatelessWidget {
             ),
             ProgressBanner()
           ],
-        ));
+        ),
+        onTap: () {
+          if (collectedItems != null) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RewardsScreen()));
+          }
+        },
+      ),
+    );
   }
 }
