@@ -5,7 +5,7 @@ An app that use [Deep Waste Model](https://www.kaggle.com/code/sumn2u/garbage-cl
 The REST API that is used in this app can be found [here](https://github.com/sumn2u/ml_rest_api). 
 
 ## Demo
-![](Demo.gif)
+[![Deep Waste](https://img.youtube.com/vi/ZSAQw6jSXHk/0.jpg)](https://www.youtube.com/watch?v=ZSAQw6jSXHk "Deep Waste")
 
 # Getting started
 1. Install Flutter. See https://flutter.io/setup/

@@ -298,13 +298,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
-  scan:
-    dependency: "direct dev"
-    description:
-      name: scan
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -353,7 +346,7 @@ packages:
     source: hosted
     version: "0.4.12"
   tflite:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: tflite
       url: "https://pub.dartlang.org"
