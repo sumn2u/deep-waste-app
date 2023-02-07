@@ -98,18 +98,18 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         20), //apply padding to LTRB, L:Left, T:Top, R:Right, B:Bottom
                     child: Text("Tips for mangaing $title waste",
                         style: TextStyle(
-                            fontSize: getProportionateScreenWidth(14),
+                            fontSize: getProportionateScreenWidth(16),
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                   ),
                   collapsed: Text(
-                    _tips[0],
+                    _tips[0] + " " + _tips[1],
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,
                     ),
                     softWrap: true,
-                    maxLines: 2,
+                    maxLines: 6,
                     overflow: TextOverflow.ellipsis,
                   ),
                   expanded: Column(
@@ -118,7 +118,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       Text(
                         "\u2022",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: getProportionateScreenWidth(14),
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ), //bullet text
@@ -126,8 +127,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
                           width: 8, height: 5), //space between bullet and text
                       Expanded(
                         child: Text(
-                          strone,
-                          style: TextStyle(fontSize: 14, color: Colors.white),
+                          "$strone \n",
+                          style: TextStyle(
+                              fontSize: getProportionateScreenWidth(14),
+                              color: Colors.white),
                         ), //text
                       ),
                     ]);

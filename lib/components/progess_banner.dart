@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:deep_waste/controller/item_notifier.dart';
 import 'package:deep_waste/controller/reward_notifier.dart';
+import 'package:deep_waste/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +20,7 @@ class ProgressBanner extends StatelessWidget {
     int totalPoints =
         items.fold(0, (sum, item) => (item.count * item.points) + sum);
     var activeReward = rewardNotifier.getActiveReward(totalPoints);
-
+    var carbonFootPrints = totalPoints * 1.08;
     return Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: getProportionateScreenWidth(20)),
@@ -51,7 +54,14 @@ class ProgressBanner extends StatelessWidget {
               Text.rich(TextSpan(
                 style: TextStyle(color: Colors.white),
                 children: [
-                  TextSpan(text: "Waste managed:\n"),
+                  TextSpan(
+                      text:
+                          "Waste managed: ${carbonFootPrints <= 0 ? 0 : getNumber(carbonFootPrints, precision: 2)} Kg Co"),
+                  TextSpan(
+                      text: "2 \n",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFeatures: [FontFeature.subscripts()])),
                 ],
               )),
               Text.rich(TextSpan(

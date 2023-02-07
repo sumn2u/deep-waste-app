@@ -37,7 +37,7 @@ class ItemNotifier extends ChangeNotifier {
     Item(
         id: "1006",
         name: "Trash",
-        count: 1,
+        count: 2,
         imageURL: "assets/images/trash.png",
         points: 35)
   ];

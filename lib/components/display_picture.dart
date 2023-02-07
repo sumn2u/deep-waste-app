@@ -4,6 +4,7 @@ import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:deep_waste/controller/item_notifier.dart';
 import 'package:deep_waste/screens/HomeScreen.dart';
+import 'package:deep_waste/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -38,11 +39,6 @@ class _DisplayPictureState extends State<DisplayPicture> {
     } on PlatformException {
       print("Couldn't load model");
     }
-  }
-
-  double getNumber(double input, {int precision = 2}) {
-    return double.parse(
-        '$input'.substring(0, '$input'.indexOf('.') + precision + 1));
   }
 
   uploadImage(context) async {
@@ -132,7 +128,7 @@ class _DisplayPictureState extends State<DisplayPicture> {
                                 )),
                                 Text.rich(TextSpan(
                                   text:
-                                      "Put this item in the respective bin to earn coins",
+                                      "Put this item in the respective bin to earn coins. Click ♻️ to get rewards.",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize:
