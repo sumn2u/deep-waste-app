@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:deep_waste/components/alert.dart';
 import 'package:deep_waste/components/categories.dart';
 import 'package:deep_waste/components/display_picture.dart';
@@ -10,6 +9,7 @@ import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:deep_waste/database_manager.dart';
 import 'package:deep_waste/models/Item.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -46,9 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DisplayPicture(
-                      image: _image,
-                    )));
+                builder: (context) =>
+                    DisplayPicture(image: _image, items: items)));
       }
     } catch (e) {
       showAlert(
@@ -94,28 +93,43 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-        backgroundColor: white,
-        body: SafeArea(
-            child: SingleChildScrollView(
-                child: Column(children: [
-          HomeHeader(),
-          SizedBox(height: getProportionateScreenHeight(15)),
-          Categories(),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          Progress(items: items),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          History(),
-          SizedBox(width: getProportionateScreenWidth(20)),
-        ]))),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // _imageFromCamera();
-            _imageFromGallery();
-          },
-          elevation: 0.0,
-          backgroundColor: Color(0xff69c0dc),
-          child: const Icon(Icons.camera_alt_outlined),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
+      backgroundColor: white,
+      floatingActionButton: FabCircularMenu(
+          ringDiameter: 180.0,
+          ringColor: Color(0xff69c0dc),
+          ringWidth: 50.0,
+          fabSize: 74.0,
+          fabElevation: 8.0,
+          fabCloseIcon: Icon(
+            Icons.close,
+          ),
+          fabOpenIcon: Icon(
+            Icons.photo,
+          ),
+          children: <Widget>[
+            IconButton(
+                icon: Icon(Icons.camera_alt_outlined),
+                onPressed: () async {
+                  _imageFromCamera();
+                }),
+            IconButton(
+                icon: Icon(Icons.folder),
+                onPressed: () async {
+                  _imageFromGallery();
+                })
+          ]),
+      body: SafeArea(
+          child: SingleChildScrollView(
+              child: Column(children: [
+        HomeHeader(),
+        SizedBox(height: getProportionateScreenHeight(15)),
+        Categories(),
+        SizedBox(height: getProportionateScreenHeight(20)),
+        Progress(items: items),
+        SizedBox(height: getProportionateScreenHeight(20)),
+        History(),
+        SizedBox(width: getProportionateScreenWidth(20)),
+      ]))),
+    );
   }
 }
