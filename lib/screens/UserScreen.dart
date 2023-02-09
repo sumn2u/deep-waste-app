@@ -2,10 +2,10 @@ import 'package:deep_waste/components/default_button.dart';
 import 'package:deep_waste/components/form_error.dart';
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/controller/user_notifier.dart';
+import 'package:deep_waste/database_manager.dart';
+import 'package:deep_waste/models/User.dart';
 import 'package:deep_waste/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -31,12 +31,19 @@ class _UserScreenState extends State<UserScreen> {
       });
   }
 
-  void validateAndSave() {
+  Future addUser() async {
+    final user = User(
+      name: title,
+      id: 1001,
+    );
+
+    await DatabaseManager.instance.insertUser(user);
+  }
+
+  void validateAndSave() async {
     final FormState form = _formKey.currentState;
     if (form.validate()) {
-      UserNotifier userNotifier =
-          Provider.of<UserNotifier>(context, listen: false);
-      userNotifier.addUser(title);
+      await addUser();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
     } else {

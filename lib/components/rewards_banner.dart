@@ -1,19 +1,16 @@
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/controller/item_notifier.dart';
 import 'package:deep_waste/controller/reward_notifier.dart';
+import 'package:deep_waste/models/Item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RewardsBanner extends StatelessWidget {
-  const RewardsBanner({
-    Key key,
-  }) : super(key: key);
+  final List<Item> items;
+  const RewardsBanner({Key key, @required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ItemNotifier itemNotifier = Provider.of<ItemNotifier>(context);
     RewardNotifier rewardNotifier = Provider.of<RewardNotifier>(context);
-    var items = itemNotifier.items;
     int totalPoints =
         items.fold(0, (sum, item) => (item.count * item.points) + sum);
     var activeReward = rewardNotifier.getActiveReward(totalPoints);

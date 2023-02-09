@@ -3,6 +3,7 @@ import 'package:deep_waste/components/reward_cup.dart';
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:deep_waste/controller/tips_notifier.dart';
+import 'package:deep_waste/models/Item.dart';
 import 'package:expandable/expandable.dart';
 
 import 'package:flutter/material.dart';
@@ -10,15 +11,15 @@ import 'package:provider/provider.dart';
 
 class RewardsScreen extends StatefulWidget {
   static String routeName = "/rewards_screen";
-
-  RewardsScreen({Key key, this.title}) : super(key: key);
-  final String title;
+  final List<Item> items;
+  const RewardsScreen({Key key, @required this.items}) : super(key: key);
 
   @override
   _RewardsScreenState createState() => _RewardsScreenState();
 }
 
 class _RewardsScreenState extends State<RewardsScreen> {
+  String title;
   final String lorelEpsum = 'This is great product ...';
   ExpandableController controller;
 
@@ -38,7 +39,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
   Widget build(BuildContext context) {
     TipsNotifier tipsNotifier = Provider.of<TipsNotifier>(context);
     var tip = tipsNotifier.getRandomTip();
-
+    int totalPoints =
+        widget.items?.fold(0, (sum, item) => (item.count * item.points) + sum);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -50,9 +52,13 @@ class _RewardsScreenState extends State<RewardsScreen> {
           child: SingleChildScrollView(
               child: Column(children: [
         SizedBox(height: getProportionateScreenHeight(5)),
-        RewardCup(),
+        totalPoints > 0
+            ? RewardCup(items: widget.items)
+            : Center(
+                child: Text(""),
+              ),
         SizedBox(height: getProportionateScreenHeight(10)),
-        CoinsCup(),
+        CoinsCup(items: widget.items),
         SizedBox(height: getProportionateScreenHeight(10)),
         ListView(
           shrinkWrap: true,

@@ -1,4 +1,7 @@
 import 'package:deep_waste/constants/app_properties.dart';
+import 'package:deep_waste/database_manager.dart';
+import 'package:deep_waste/models/User.dart';
+import 'package:deep_waste/screens/HomeScreen.dart';
 import 'package:deep_waste/screens/OnboardingScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +15,19 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   Animation<double> opacity;
   AnimationController controller;
+  User user;
+  bool isLoading = false;
+
+  Future getUserInfo() async {
+    setState(() => isLoading = true);
+    user = await DatabaseManager.instance.getUser();
+    setState(() => isLoading = false);
+  }
 
   @override
   void initState() {
     super.initState();
+    getUserInfo();
     controller = AnimationController(
         duration: Duration(milliseconds: 2500), vsync: this);
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(controller)
@@ -34,8 +46,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void navigationPage() {
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => OnboardingScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) =>
+            !isLoading && user != null ? HomeScreen() : OnboardingScreen()));
   }
 
   Widget build(BuildContext context) {

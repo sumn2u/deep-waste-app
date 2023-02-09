@@ -1,23 +1,15 @@
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/controller/item_notifier.dart';
-import 'package:deep_waste/controller/reward_notifier.dart';
+import 'package:deep_waste/models/Item.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CoinsBanner extends StatelessWidget {
-  const CoinsBanner({
-    Key key,
-  }) : super(key: key);
+  final List<Item> items;
+  const CoinsBanner({Key key, @required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ItemNotifier itemNotifier = Provider.of<ItemNotifier>(context);
-    RewardNotifier rewardNotifier = Provider.of<RewardNotifier>(context);
-    var items = itemNotifier.items;
-    int totalPoints =
+    int currentCoins =
         items.fold(0, (sum, item) => (item.count * item.points) + sum);
-    var activeReward = rewardNotifier.getActiveReward(totalPoints);
-
     return Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: getProportionateScreenWidth(20)),
@@ -52,7 +44,7 @@ class CoinsBanner extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
                 children: [
                   TextSpan(
-                      text: "${activeReward.points} coins\n",
+                      text: "$currentCoins coins\n",
                       style: TextStyle(
                         fontSize: getProportionateScreenWidth(16),
                         fontWeight: FontWeight.bold,

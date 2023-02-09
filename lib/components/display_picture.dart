@@ -2,18 +2,19 @@ import 'dart:io';
 import 'package:deep_waste/components/default_button.dart';
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/controller/item_notifier.dart';
+import 'package:deep_waste/database_manager.dart';
+import 'package:deep_waste/models/Item.dart';
 import 'package:deep_waste/screens/HomeScreen.dart';
 import 'package:deep_waste/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
 import 'package:tflite/tflite.dart';
 
 class DisplayPicture extends StatefulWidget {
   final File image;
-  const DisplayPicture({Key key, this.image}) : super(key: key);
+  final List<Item> items;
+  const DisplayPicture({Key key, this.image, this.items}) : super(key: key);
   @override
   _DisplayPictureState createState() => _DisplayPictureState(image: this.image);
 }
@@ -22,6 +23,7 @@ class _DisplayPictureState extends State<DisplayPicture> {
   final File image;
   _DisplayPictureState({this.image});
   String prediction;
+  String predictedResult;
   bool predicted = false;
 
   @override
@@ -41,10 +43,15 @@ class _DisplayPictureState extends State<DisplayPicture> {
     }
   }
 
-  uploadImage(context) async {
-    ItemNotifier itemNotifier =
-        Provider.of<ItemNotifier>(context, listen: false);
+  Future updateItem(List<Item> items, String itemName) async {
+    var matchedItem = items.firstWhere(
+        (_item) => _item.name.toLowerCase() == itemName,
+        orElse: () => null);
+    matchedItem.count = matchedItem.count + 1;
+    await DatabaseManager.instance.updateItem(matchedItem);
+  }
 
+  uploadImage(context) async {
     EasyLoading.show(status: 'Predicting...');
     var output = await Tflite.runModelOnImage(
         path: image.path,
@@ -60,8 +67,8 @@ class _DisplayPictureState extends State<DisplayPicture> {
     setState(() {
       predicted = true;
       prediction = "Predicted ${result['label']} with $confidence% confidence.";
+      predictedResult = result['label'];
     });
-    itemNotifier.updateCount(result['label']);
 
     // showAlert(bContext: context, title: "Done!", content: "Predicted ${result['label']} with $confidence% confidence.");
   }
@@ -139,8 +146,8 @@ class _DisplayPictureState extends State<DisplayPicture> {
                         Expanded(
                           flex: 1,
                           child: InkWell(
-                            onTap: () {
-                              // print('makers');
+                            onTap: () async {
+                              await updateItem(widget.items, predictedResult);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

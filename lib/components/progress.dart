@@ -1,20 +1,15 @@
 import 'package:deep_waste/components/progess_banner.dart';
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/controller/item_notifier.dart';
+import 'package:deep_waste/models/Item.dart';
 import 'package:deep_waste/screens/RewardsScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Progress extends StatelessWidget {
-  const Progress({
-    Key key,
-  }) : super(key: key);
+  final List<Item> items;
+  Progress({Key key, @required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ItemNotifier itemNotifier = Provider.of<ItemNotifier>(context);
-    var collectedItems = itemNotifier.getCollectedItem();
-
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -34,13 +29,17 @@ class Progress extends StatelessWidget {
                 )
               ],
             ),
-            ProgressBanner()
+            ProgressBanner(
+              items: items,
+            )
           ],
         ),
         onTap: () {
-          if (collectedItems != null) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RewardsScreen()));
+          if (items.isNotEmpty) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => RewardsScreen(items: items)));
           }
         },
       ),

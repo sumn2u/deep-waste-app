@@ -5,7 +5,7 @@ class UserNotifier extends ChangeNotifier {
   User user;
 
   addUser(title) {
-    user = User("1001", title);
+    user = User(id: 1001, name: title);
     notifyListeners();
   }
 }

@@ -8,6 +8,8 @@ import 'package:deep_waste/components/home_header.dart';
 import 'package:deep_waste/components/progress.dart';
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
+import 'package:deep_waste/database_manager.dart';
+import 'package:deep_waste/models/Item.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,6 +25,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   File _image;
+  List<Item> items = [];
+  bool isLoading = false;
+
   ImagePicker imagePicker = ImagePicker();
   _imageFromCamera() async {
     try {
@@ -68,12 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DisplayPicture(image: _image)));
+              builder: (context) =>
+                  DisplayPicture(image: _image, items: items)));
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+    getItems();
+  }
+
+  Future getItems() async {
+    setState(() => isLoading = true);
+    items = await DatabaseManager.instance.getItems();
+    setState(() => isLoading = false);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
         backgroundColor: white,
         body: SafeArea(
@@ -83,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: getProportionateScreenHeight(15)),
           Categories(),
           SizedBox(height: getProportionateScreenHeight(20)),
-          Progress(),
+          Progress(items: items),
           SizedBox(height: getProportionateScreenHeight(20)),
           History(),
           SizedBox(width: getProportionateScreenWidth(20)),
@@ -92,8 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {
             // _imageFromCamera();
             _imageFromGallery();
-            // Navigator.push(context,
-            //   MaterialPageRoute(builder: (context) => ScanScreen()));
           },
           elevation: 0.0,
           backgroundColor: Color(0xff69c0dc),
