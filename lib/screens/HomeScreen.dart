@@ -95,11 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: white,
       floatingActionButton: FabCircularMenu(
-          ringDiameter: 180.0,
+          ringDiameter:  getProportionateScreenWidth(130.0),
           ringColor: Color(0xff69c0dc),
-          ringWidth: 50.0,
-          fabSize: 74.0,
-          fabElevation: 8.0,
+          ringWidth: getProportionateScreenWidth(40.0),
+          fabSize: getProportionateScreenWidth(44.0),
+          fabElevation: getProportionateScreenWidth(8.0),
           fabCloseIcon: Icon(
             Icons.close,
           ),

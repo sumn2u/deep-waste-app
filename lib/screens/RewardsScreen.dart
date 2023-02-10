@@ -111,7 +111,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                   collapsed: Text(
                     _tips[0] + " " + _tips[1],
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: getProportionateScreenWidth(14),
                       color: Colors.white,
                     ),
                     softWrap: true,

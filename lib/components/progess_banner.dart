@@ -52,7 +52,7 @@ class ProgressBanner extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text.rich(TextSpan(
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: getProportionateScreenWidth(12)),
                         children: [
                           TextSpan(
                               text:
@@ -60,7 +60,7 @@ class ProgressBanner extends StatelessWidget {
                           TextSpan(
                               text: "2 \n",
                               style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: getProportionateScreenWidth(6),
                                   fontFeatures: [FontFeature.subscripts()])),
                         ],
                       )),

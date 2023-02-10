@@ -66,7 +66,7 @@ class _DisplayPictureState extends State<DisplayPicture> {
     var confidence = getNumber(result['confidence'], precision: 2);
     setState(() {
       predicted = true;
-      prediction = "Predicted ${result['label']} with $confidence% confidence.";
+      prediction = "Predicted ${result['label']} with ${confidence*100}% confidence.";
       predictedResult = result['label'];
     });
 

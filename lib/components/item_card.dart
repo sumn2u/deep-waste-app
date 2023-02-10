@@ -33,19 +33,19 @@ class ItemCard extends StatelessWidget {
           children: [
             Text(
               item.name,
-              style: TextStyle(color: kSecondaryColor, fontSize: 16),
+              style: TextStyle(color: kSecondaryColor, fontSize: getProportionateScreenWidth(12)),
               maxLines: 2,
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
                 text: "${item.points} points",
-                style: TextStyle(fontWeight: FontWeight.w500),
+                style: TextStyle(fontWeight: FontWeight.w500,  fontSize: getProportionateScreenWidth(11)),
                 children: [
                   TextSpan(
                     text: " x ${item.count}",
                     style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Color(0xff69c0dc)),
+                        fontWeight: FontWeight.w500, color: Color(0xff69c0dc),  fontSize: getProportionateScreenWidth(11)),
                   )
                 ],
               ),
