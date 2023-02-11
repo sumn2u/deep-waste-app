@@ -1,8 +1,16 @@
 # Deep Waste
 
-An app that use [Deep Waste Model](https://www.kaggle.com/code/sumn2u/garbage-classification) to classify the waste. 
+An app that use [machine learning model](https://www.kaggle.com/code/sumn2u/garbage-classification) to classify the waste and manage it effectively. It a standalone app and works without internet.
 
-The REST API that is used in this app can be found [here](https://github.com/sumn2u/ml_rest_api). 
+# Background
+Waste identification is a crucial step in the waste management process that enables facilities to properly handle, recycle, and reduce their waste, while also ensuring compliance with regulations and tracking their progress over time. The integration of machine learning models with mobile devices can enhance the precision, ease, and effectiveness of waste management endeavors, as well as furnish valuable information for monitoring and decreasing waste.
+
+In this app,  we have prepared a substantial collection of waste images and trained a machine learning model. The trained model is then installed on a mobile device, enabling real-time waste identification. By simply capturing an image of the waste with their mobile device, users can receive an instant classification of the waste into categories such as paper, plastic, glass, metal, and more, via the machine learning model.
+With this approach, one can have many advantages such as:
+- Convenience: By using mobile devices, waste identification can be performed anywhere, at any time, making it more accessible and convenient for users.
+- Increased Accuracy: Machine learning models are trained on large datasets, which can result in improved accuracy compared to manual waste classification.
+- Real-time Feedback: By using a mobile device, users receive instant feedback on the type of waste they are dealing with, allowing them to make informed decisions on how to properly manage the waste.
+- Data Collection: The data collected through mobile waste identification can be used to track waste generation and management efforts over time, helping to identify areas for improvement and set new waste reduction goals.
 
 ## Demo
 [![Deep Waste](https://img.youtube.com/vi/9hKCymDleco/0.jpg)](https://www.youtube.com/watch?v=9hKCymDleco "Deep Waste")
@@ -33,7 +41,6 @@ directory | description
 
 
 # Contributing
-This project is under development.
 
 Contributions are always welcome. Feel free to report Issue or send Pull Request.
 
