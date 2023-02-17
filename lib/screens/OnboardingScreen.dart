@@ -1,7 +1,6 @@
 import 'package:deep_waste/constants/onboarding_contents.dart';
 import 'package:deep_waste/screens/HomeScreen.dart';
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/screens/UserScreen.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -122,7 +121,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => UserScreen()));
+                                      builder: (context) => HomeScreen()));
                             },
                             child: const Text("START"),
                             style: ElevatedButton.styleFrom(

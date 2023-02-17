@@ -1,12 +1,13 @@
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
-import 'package:deep_waste/database_manager.dart';
 import 'package:deep_waste/models/User.dart';
 import 'package:flutter/material.dart';
 
 class UserInfo extends StatefulWidget {
+  final User user;
   UserInfo({
     Key key,
+    @required this.user
   }) : super(key: key);
 
   @override
@@ -14,27 +15,15 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  User user;
-  bool isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    getUserInfo();
-  }
-
-  Future getUserInfo() async {
-    setState(() => isLoading = true);
-    user = await DatabaseManager.instance.getUser();
-    setState(() => isLoading = false);
-  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       width: SizeConfig.screenWidth,
       child: Text(
-        isLoading ? "" : "Hi, ${user.name}!",
+        "Hi, ${ widget.user !=null ? widget.user.name : 'User'}!",
         style: TextStyle(
           fontSize: getProportionateScreenWidth(12),
           color: kSecondaryColor,

@@ -9,6 +9,8 @@ import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:deep_waste/database_manager.dart';
 import 'package:deep_waste/models/Item.dart';
+import 'package:deep_waste/models/User.dart';
+import 'package:deep_waste/screens/UserScreen.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   File _image;
   List<Item> items = [];
   bool isLoading = false;
+  User user;
 
   ImagePicker imagePicker = ImagePicker();
   _imageFromCamera() async {
@@ -81,6 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getItems();
+    getUserInfo();
+  }
+  
+  Future getUserInfo() async {
+    setState(() => isLoading = true);
+    user = await DatabaseManager.instance.getUser();
+    setState(() => isLoading = false);
   }
 
   Future getItems() async {
@@ -110,18 +120,32 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
                 icon: Icon(Icons.camera_alt_outlined),
                 onPressed: () async {
+                  if(user == null){
+                    Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UserScreen()));
+                  }else{
                   _imageFromCamera();
+                  }
                 }),
             IconButton(
                 icon: Icon(Icons.folder),
                 onPressed: () async {
+                  if(user == null){
+                    Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UserScreen()));
+                  }else{
                   _imageFromGallery();
+                  }
                 })
           ]),
       body: SafeArea(
           child: SingleChildScrollView(
               child: Column(children: [
-        HomeHeader(),
+        HomeHeader(user: user),
         SizedBox(height: getProportionateScreenHeight(15)),
         Categories(),
         SizedBox(height: getProportionateScreenHeight(20)),
