@@ -24,7 +24,7 @@ class DatabaseManager {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, _dbName);
 
-    await deleteDatabase(path);
+    // await deleteDatabase(path);
     // Check if the database exists
     var dbExits = await databaseExists(path);
     // // await deleteDatabase(path);
