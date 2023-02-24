@@ -15,6 +15,8 @@ With this approach, one can have many advantages such as:
 ## Demo
 [![Deep Waste](https://img.youtube.com/vi/9hKCymDleco/0.jpg)](https://www.youtube.com/watch?v=9hKCymDleco "Deep Waste")
 
+## Available on 
+[Google Play](https://play.google.com/store/apps/details?id=com.hai.deep_waste)
 # Getting started
 1. Install Flutter. See https://flutter.io/setup/
 
