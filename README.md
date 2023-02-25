@@ -2,6 +2,8 @@
 
 An app that use [machine learning model](https://www.kaggle.com/code/sumn2u/garbage-classification) to classify the waste and manage it effectively. It a standalone app and works without internet.
 
+<img alt="Instructions"  src="./app_banner.png">
+
 # Background
 Waste identification is a crucial step in the waste management process that enables facilities to properly handle, recycle, and reduce their waste, while also ensuring compliance with regulations and tracking their progress over time. The integration of machine learning models with mobile devices can enhance the precision, ease, and effectiveness of waste management endeavors, as well as furnish valuable information for monitoring and decreasing waste.
 
