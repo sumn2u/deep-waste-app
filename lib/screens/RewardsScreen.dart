@@ -102,7 +102,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                   header: Padding(
                     padding: EdgeInsets.fromLTRB(10, 10, 20,
                         20), //apply padding to LTRB, L:Left, T:Top, R:Right, B:Bottom
-                    child: Text("Tips for mangaing $title waste",
+                    child: Text("Tips for managing $title waste",
                         style: TextStyle(
                             fontSize: getProportionateScreenWidth(16),
                             color: Colors.white,
