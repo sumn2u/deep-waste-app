@@ -14,6 +14,18 @@ With this approach, one can have many advantages such as:
 - Real-time Feedback: By using a mobile device, users receive instant feedback on the type of waste they are dealing with, allowing them to make informed decisions on how to properly manage the waste.
 - Data Collection: The data collected through mobile waste identification can be used to track waste generation and management efforts over time, helping to identify areas for improvement and set new waste reduction goals.
 
+## Features 
+Here are some of its features:
+📸 Snap or upload a picture of a waste <br>
+📱 Install the app on your phone for easy access <br>
+♻️ Learn how to recycle effectively using AI <br>
+🥤 Keep track of how many waste items you've recycled<br>
+🏆 Get rewarded for each managed waste <br>
+🌍 Help to make our earth cleaner <br>
+✨...and much more to come - all for free & no sign in needed!<br>
+
+<a href="https://www.producthunt.com/posts/deep-waste?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-deep&#0045;waste" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=379129&theme=neutral" alt="Deep&#0032;Waste - Making&#0032;waste&#0032;management&#0032;fun&#0032;and&#0032;easy&#0032;&#0032; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 ## Demo
 [![Deep Waste](https://img.youtube.com/vi/9hKCymDleco/0.jpg)](https://www.youtube.com/watch?v=9hKCymDleco "Deep Waste")
 
