@@ -1,6 +1,6 @@
 # Deep Waste
 
-An app that use [machine learning model](https://www.kaggle.com/code/sumn2u/garbage-classification) to classify the waste and manage it effectively. It a standalone app and works without internet.
+An app that use [waste classification machine learning model](https://colab.research.google.com/drive/1yWqc8TRS0I21RdfHLPRTQIs37ANOx-Uq) to classify the waste and manage it effectively. It a standalone app and works without internet.
 
 <img alt="Instructions"  src="./app_banner.png">
 
@@ -43,6 +43,9 @@ The main classes are under `lib` directory.
 
 directory | description
 
+    assets
+    ├── models
+    # waste classification model
     lib
     ├── ...
     ├── components                   # reusable components
@@ -55,6 +58,9 @@ directory | description
     └── ...
 
 
+# AI Model
+[Torch](https://pytorch.org) and [Keras](https://keras.io/api/applications/#mobilenet) provide the pre-trained models [DenseNet121](https://keras.io/api/applications/densenet/#densenet121-function) and [MobileNet](https://keras.io/api/applications/mobilenet/), respectively, which we utilize for our image recognition models. These models were initially trained on ImageNet. We then fine-tuned MobileNet using the [TrashNet data collection](https://github.com/garythung/trashnet) to classify garbage material.
+Then resutlant model are then converted into `tflite` file, making it accessible for processing in mobile devices.
 
 # Contributing
 
@@ -76,3 +82,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+Feel free to reach out to us at sumn2u@gmail.com, to Suman or Tek directly if you have any questions or feedback! Hope you find this useful 💜
