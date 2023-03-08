@@ -83,6 +83,13 @@ class DatabaseManager {
     return id;
   }
 
+  Future<int> deleteUser(userId) async {
+    final db = await instance.database;
+    final id = await db.delete("User", where: "id = ?", whereArgs: [userId]);
+    return id;
+  }
+
+
   Future<int> updateItem(Item item) async {
     final db = await instance.database;
     final id = await db.update(

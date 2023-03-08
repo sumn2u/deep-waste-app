@@ -124,7 +124,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       Text(
                         "\u2022",
                         style: TextStyle(
-                          fontSize: getProportionateScreenWidth(14),
+                          fontSize: getProportionateScreenWidth(16),
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),

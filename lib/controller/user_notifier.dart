@@ -8,4 +8,9 @@ class UserNotifier extends ChangeNotifier {
     user = User(id: 1001, name: title);
     notifyListeners();
   }
+
+  removeUser(title) {
+    user = null;
+    notifyListeners();
+  }
 }

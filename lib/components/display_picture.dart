@@ -117,7 +117,7 @@ class _DisplayPictureState extends State<DisplayPicture> {
                       ),
                       child: Row(children: <Widget>[
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -135,7 +135,7 @@ class _DisplayPictureState extends State<DisplayPicture> {
                                 )),
                                 Text.rich(TextSpan(
                                   text:
-                                      "Put this item in the respective bin to earn coins. Click ♻️ to get rewards.",
+                                      "Put this item in the respective bin to earn coins. Click ♻️ to get rewards. \n\n For wrong prediction, help us to learn more by submitting waste image through contact link.",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize:

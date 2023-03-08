@@ -53,7 +53,7 @@ class CoinsBanner extends StatelessWidget {
               )),
               Text.rich(TextSpan(
                 text:
-                    "For each recycled item, you get a different amount of coins that you can spend through Moms Store Nepal or to offset your emissions.",
+                    "For each recycled item, you get a different amount of coins that you can spend through Moms Store Nepal.",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(14)),

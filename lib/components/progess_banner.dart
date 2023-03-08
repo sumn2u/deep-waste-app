@@ -60,7 +60,7 @@ class ProgressBanner extends StatelessWidget {
                           TextSpan(
                               text: "2 \n",
                               style: TextStyle(
-                                  fontSize: getProportionateScreenWidth(6),
+                                  fontSize: getProportionateScreenWidth(12),
                                   fontFeatures: [FontFeature.subscripts()])),
                         ],
                       )),

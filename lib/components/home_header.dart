@@ -2,6 +2,8 @@ import 'package:deep_waste/components/icon_btn_with_counter.dart';
 import 'package:deep_waste/components/user_info.dart';
 import 'package:deep_waste/constants/size_config.dart';
 import 'package:deep_waste/models/User.dart';
+import 'package:deep_waste/screens/SettingsScreen.dart';
+import 'package:deep_waste/screens/UserScreen.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -31,9 +33,21 @@ class HomeHeader extends StatelessWidget {
                   ),
                 ),
                 IconBtnWithCounter(
-                  svgSrc: "assets/icons/Bell.svg",
+                  svgSrc: "assets/icons/settings.svg",
                   numOfitem: 0,
-                  press: () async {},
+                  press: () async {
+                    if(user != null){
+                    Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SettingsScreen(user: user)));
+                    }else {
+                      Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UserScreen()));
+                    }
+                  },
                 ),
               ],
             )
