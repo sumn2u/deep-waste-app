@@ -31,6 +31,8 @@ Here are some of its features:
 
 ## Available on 
 [Google Play](https://play.google.com/store/apps/details?id=com.hai.deep_waste)
+
+[App Store](https://apps.apple.com/app/deep-waste-ai/id6445863514?platform=iphone)
 # Getting started
 1. Install Flutter. See https://flutter.io/setup/
 
