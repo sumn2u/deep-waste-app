@@ -19,6 +19,7 @@ With this approach, one can have many advantages such as:
 
 ## Features 
 Here are some of its features:
+
 📸 Snap or upload a picture of a waste <br>
 📱 Install the app on your phone for easy access <br>
 ♻️ Learn how to recycle effectively using AI <br>
