@@ -1,5 +1,5 @@
 # Deep Waste
-Final project for the Building AI course
+Final project for the Building AI course. You can find the research paper utilized in this study [here](https://www.preprints.org/manuscript/202304.0066/v1), and the process of developing this app [here](https://medium.com/@sumn2u/deep-learning-approach-to-manage-household-waste-via-mobile-app-4186292b266b).
 
 ## Summary
 
