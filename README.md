@@ -99,4 +99,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-Feel free to reach out to us at sumn2u@gmail.com, to Suman or Tek directly if you have any questions or feedback! Hope you find this useful 💜
+Feel free to reach out to us at sumn2u@gmail.com, to Suman directly if you have any questions or feedback! Hope you find this useful 💜
