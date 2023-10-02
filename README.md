@@ -112,7 +112,7 @@ How to issue a Pull Request:
 
 5. Commit your changes: Use the command "git add filename" to stage your modified file(s). You may also use the command "git add ." to add all files, folders, and subfolders. To learn more about "git add" check out this link: https://github.com/git-guides/git-add . Next, run the command "git commit -m "commit message"", where "commit message" is a meaningful message that allows others to understand the changes you made and why you made them. 
 
-6. Push your changes: It is time to push the changes to the current branch of your forked repository. Run the command "git status" to make sure that you are on your newly created branch. Run the command "git push". For more information on this command, check out this link: https://github.com/git-guides/git-push . 
+6. Push your changes: It is time to push the changes to the current branch of your forked repository. Run the command "git status" to make sure that you are on your newly created branch. Run the command "git push --set-upstream origin new-branch". 
 
 7. Create a pull request: Make a pull request to the original repository. In Github, go to your forked repository and click the "Compare & pull request" button. Add in a meaningful title, a comment, and then press the “Create pull request” button.
 
