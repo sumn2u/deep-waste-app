@@ -81,6 +81,23 @@ directory | description
 
 Contributions are always welcome. Feel free to report Issue or send Pull Request.
 
+How to issue a Pull Request:
+
+1. Fork the repository: Click on the fork button in the top right corner of Github. This will make a copy of the repository that will be available on your personal Github space.
+
+2. Clone the repository: Go to your fork on GitHub, click the green "Code" button, and copy the clone HTTPS link. This next step should be completed through the command line. Navigate to the folder where you want to save the project by using the command "cd". Next, run the command "git clone url", where url is the link you copied from your fork. 
+
+3. Create a new branch: Navigate to the folder that was created by the clone by using the command "cd deep-waste-app". When creating a branch, it is very important that you create your new branch off of the master branch. To do so, first run the command "git checkout master". Next, to create your branch, run "git branch new-branch", then "git checkout new-branch". After this command you should recieve the output "Switched to branch 'new-branch'.
+
+4. Contribute: Make changes to the existing project.
+
+5. Commit your changes: Use the command "git add filename" to stage your modified file(s). You may also use the command "git add ." to add all files, folders, and subfolders. To learn more about "git add" check out this link: https://github.com/git-guides/git-add . Next, run the command "git commit -m "commit message"", where "commit message" is a meaningful message that allows others to understand the changes you made and why you made them. 
+
+6. Push your changes: It is time to push the changes to the current branch of your forked repository. Run the command "git status" to make sure that you are on your newly created branch. Run the command "git push". For more information on this command, check out this link: https://github.com/git-guides/git-push . 
+
+7. Create a pull request: Make a pull request to the original repository. In Github, go to your forked repository and click the "Compare & pull request" button. Add in a meaningful title, a comment, and then press the “Create pull request” button.
+
+
 ## Acknowledgments
 
 ## License
