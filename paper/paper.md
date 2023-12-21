@@ -37,9 +37,9 @@ Integration of machine learning models with mobile devices presents a promising 
 The app uses the [TrashNet](https://github.com/garythung/trashnet) dataset to recognize different types of waste materials including plastic, glass, paper, and organic waste with various machine learning models, including InceptionV3 [@feng_office_2020], MobileNetV2 [@yong_application_2023], InceptionResnet V2 [@lee_novel_2021], ResNet [@girsang_convolutional_2022], MobileNet[@nurahmadan_mobile_2021], and Xception[@rismiyati_xception_2020].
 
 
-The app also provides information on how to dispose of the waste and what recycling options are available. This approach can be customized to meet the user's specific needs, including local waste management regulations and individual household waste disposal habits and preferences. The home screen of the app is show in \autoref{fig:deep-waste-app}
+The app also provides information on how to dispose of the waste and what recycling options are available. This approach can be customized to meet the user's specific needs, including local waste management regulations and individual household waste disposal habits and preferences. The home screen of the app is show in \autoref{fig:deep_waste_app}
 
-![Deep Waste App\label{fig:deep_waste_app}](deep-waste-app.png){width="100%"}
+![Deep Waste App Home Screen\label{fig:deep_waste_app}](deep-waste-app.png){width="100%"}
 
 The classification models are then converted into a lite format, such as [TFLite](https://www.tensorflow.org/lite/guide), which enables them to be used on mobile devices with limited resources. This format allows for fast loading times, smaller size, and compatibility with various programming languages and platforms. \autoref{fig:deep_waste_app_workflow} describes the overall workflow of the app.
 
