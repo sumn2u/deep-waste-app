@@ -46,7 +46,11 @@ The classification models are then converted into a lite format, such as [TFLite
 ![Deep Waste App Workflow\label{fig:deep_waste_app_workflow}](app-workflow.png){width="100%"}
 
 
-The app's user interface is designed to be user-friendly and intuitive, making it easy for anyone to use. It can also be used in conjunction with other waste management services such as waste collection and recycling services. In addition, a leaderboard is generated based on the [CO2 preserved](https://stopwaste.co/calculator/) by recycling/composting.  The waste classification results are shown in \autoref{fig:waste_classification_results}.
+The app's user interface is designed to be user-friendly and intuitive, making it easy for anyone to use. It can also be used in conjunction with other waste management services such as waste collection and recycling services. In the progress tracker screen, users can monitor their progress towards rewards and receive tips on managing household waste, as shown in \autoref{fig:progress_tracker_screen}.
+
+![Progress Tracker Screen\label{fig:progress_tracker_screen}](progress-tracker.png){width="100%"}
+
+In addition, a leaderboard is generated based on the [CO2 preserved](https://stopwaste.co/calculator/) by recycling/composting.  The waste classification results are shown in \autoref{fig:waste_classification_results}.
 
 ![Waste Classification Results\label{fig:waste_classification_results}](waste-classification-results.png){width="100%"}
 
