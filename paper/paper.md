@@ -29,7 +29,7 @@ The escalating global waste crisis, projected to surge by 70% by 2050 without in
 
 Recent advancements leverage deep learning models to streamline waste sorting and management [@liu_image_2022]. These models, like RWNet and ConvoWaste, exhibit high accuracy, emphasizing the role of accurate waste disposal in mitigating climate change and reducing greenhouse gas emissions. Some studies incorporate IoT and waste grid segmentation to classify and segregate waste items in real time [@m_technical_2023].
 
-Integration of machine learning models with mobile devices presents a promising avenue for precise waste management [@narayan_deepwaste:_2021]. The use of optimized deep learning techniques in an app demonstrates potential, achieving an accuracy of 0.881 in waste classification. However, limitations persist, prompting the introduction of MWaste, a mobile app employing computer vision to classify waste into six types. Tested on various neural network architectures, MWaste attains a remarkable 92% precision on the test set, functioning both online and offline.
+Integration of machine learning models with mobile devices presents a promising avenue for precise waste management [@narayan_deepwaste:_2021]. The use of optimized deep learning techniques in an app demonstrates potential, achieving an accuracy of 0.881 in waste classification. However, limitations persist, prompting the introduction of Deep Waste, a mobile app employing computer vision to classify waste into six types. Tested on various neural network architectures, Deep Waste attains a remarkable 92% precision on the test set, functioning both online and offline.
 
 
 
