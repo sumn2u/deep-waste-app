@@ -21,7 +21,9 @@ bibliography: paper.bib
 
 
 # Summary
-Deep Waste is a mobile application that leverages state-of-the art computer vision and deep learning technologies to accurately classify waste materials into six categories: trash, plastic, paper, metal, glass, and cardboard. This innovative solution was developed to address the challenges of costly, imprecise, and unclear waste classification methods. Deep Waste has undergone rigorous testing on a variety of neural network architectures and real-world images, achieving an impressive average precision of 92% on the test set. By enabling efficient waste processing, reducing greenhouse gas emissions, and promoting sustainable practices, this app has the potential to transform the field of waste management.
+Deep Waste[^1] is a mobile application that leverages state-of-the art computer vision and deep learning technologies to accurately classify waste materials into six categories: trash, plastic, paper, metal, glass, and cardboard. This innovative solution was developed to address the challenges of costly, imprecise, and unclear waste classification methods. Deep Waste has undergone rigorous testing on a variety of neural network architectures and real-world images, achieving an impressive average precision of 92% on the test set. By enabling efficient waste processing, reducing greenhouse gas emissions, and promoting sustainable practices, this app has the potential to transform the field of waste management.
+
+[^1]: Previously known as MWaste.
 
 # Statement of need
 
@@ -43,7 +45,7 @@ The app also provides information on how to dispose of the waste and what recycl
 
 The classification models are then converted into a lite format, such as [TFLite](https://www.tensorflow.org/lite/guide), which enables them to be used on mobile devices with limited resources. This format allows for fast loading times, smaller size, and compatibility with various programming languages and platforms. \autoref{fig:deep_waste_app_workflow} describes the overall workflow of the app.
 
-![Deep Waste App Workflow\label{fig:deep_waste_app_workflow}](app-workflow.png){width="100%"}
+![App Workflow\label{fig:deep_waste_app_workflow}](app-workflow.png){width="100%"}[@kunwar_suman_2023]
 
 
 The app's user interface is designed to be user-friendly and intuitive, making it easy for anyone to use. It can also be used in conjunction with other waste management services such as waste collection and recycling services. In the progress tracker screen, users can monitor their progress towards rewards and receive tips on managing household waste, as shown in \autoref{fig:progress_tracker_screen}.
