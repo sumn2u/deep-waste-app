@@ -2,7 +2,7 @@
 [![Build Status](https://app.travis-ci.com/sumn2u/deep-waste-app.svg?branch=master)](https://app.travis-ci.com/sumn2u/deep-waste-app)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-You can find the research paper utilized in this study [here](https://www.aimspress.com/article/doi/10.3934/ctr.2023008), descriptive analysis of the data [here](https://colab.research.google.com/drive/1JPwI75T_PMlTITO3tDmIhGEVsIREnGHa?usp=sharing) and the process of developing this app [here](https://medium.com/@sumn2u/deep-learning-approach-to-manage-household-waste-via-mobile-app-4186292b266b).
+You can find the research paper utilized in this study [here](https://www.aimspress.com/article/doi/10.3934/ctr.2023008), descriptive analysis of the data [here](https://colab.research.google.com/drive/1JPwI75T_PMlTITO3tDmIhGEVsIREnGHa?usp=sharing) and the process of developing this app [here](https://medium.com/@sumn2u/deep-learning-approach-to-manage-household-waste-via-mobile-app-4186292b266b). The transfer learning study can be found [here](https://www.kaggle.com/code/sumn2u/garbage-classification-transfer-learning).
 
 ## Summary
 
@@ -37,7 +37,8 @@ Here are some of its features:
 
 After training the AI model, we export it to TensorFlow Lite for mobile device compatibility. Using the app, users take or upload a picture of their waste, which the model then analyzes and provides suggestions for waste management. When users successfully manage their waste, they receive rewards. To enhance the accuracy of the system, users can submit incorrect predictions and specify the type of waste.
 ## Data sources and AI methods
-[Torch](https://pytorch.org) and [Keras](https://keras.io/api/applications/#mobilenet) provide the pre-trained models [DenseNet121](https://keras.io/api/applications/densenet/#densenet121-function) and [MobileNet](https://keras.io/api/applications/mobilenet/), respectively, which we utilize for our image recognition models. These models were initially trained on ImageNet. We then fine-tuned MobileNet using the [TrashNet data collection](https://github.com/garythung/trashnet) to classify garbage material.
+[Torch](https://pytorch.org) and [Keras](https://keras.io/api/applications/#mobilenet) provide the pre-trained models [DenseNet121](https://keras.io/api/applications/densenet/#densenet121-function) and [MobileNet](https://keras.io/api/applications/mobilenet/), respectively, which we utilize for our image recognition models. These models were initially trained on ImageNet. We then fine-tuned MobileNet using the [TrashNet data collection](https://github.com/garythung/trashnet) to classify garbage material. Transfer learning model is  applied in V2 using [Garbage Dataset](https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2).
+
 Then resutlant model are then converted into `tflite` file, making it accessible for processing in mobile devices
 
 ## Challenges
