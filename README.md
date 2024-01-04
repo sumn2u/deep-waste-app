@@ -43,6 +43,9 @@ Then resutlant model are then converted into `tflite` file, making it accessible
 ## Challenges
 This project classifies most of the waste but for some, it's still a problem. These images whose accuracy is less than 45 or with wrong prediction needs to be find into the model so that machine can learn from it. Besides that, some of the devices has problem running the model resulting crashing the whole application.
 
+## REST API?
+The REST API of the deep waste model can be found [here](https://github.com/sumn2u/deep-waste-rest-api).
+
 ## What next?
 The plan is to add a way to support internationlization. The language support will help to reach more people and lessen the boundries. 
 ## Demo
