@@ -36,9 +36,9 @@ Integration of machine learning models with mobile devices presents a promising 
 
 The model was trained with Tesla T4 GPU and uses EfficientNetV2 [@tan2021efficientnetv2] model as a base model with addition of agumentation layer. Adam was used as an optmizer with intital learning rate of 0.01. Which was later optmised using [optuna](https://optuna.org/) to create more accurate optimization parameters. The training and validation loss is shown in \autoref{fig:training_vs_val_loss} whereas \autoref{fig:training_vs_val_accuracy} shows training and validation accuracy on the performed experiment[^2].
 
-![Training and Validation loss at different epochs\label{fig:training_vs_val_loss}](training_vs_val_loss.png){width="48%"}
+![Training and Validation loss at different epochs\label{fig:training_vs_val_loss}](training_vs_val_loss.png){width="100%"}
 
-![Training and Validation accuracy at different epochs\label{fig:training_vs_val_accuracy}](training_vs_val_accuracy.png){width="48%"}
+![Training and Validation accuracy at different epochs\label{fig:training_vs_val_accuracy}](training_vs_val_accuracy.png){width="100%"}
 
 
 The confusion matix of the modle is shown in  \autoref{fig:confusion_matrix}.
