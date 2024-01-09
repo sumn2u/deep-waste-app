@@ -34,29 +34,45 @@ Recent advancements leverage deep learning models to streamline waste sorting an
 
 Integration of machine learning models with mobile devices presents a promising avenue for precise waste management [@narayan_deepwaste:_2021]. The use of optimized deep learning techniques in an app demonstrates potential, achieving an accuracy of 0.881 in waste classification. However, limitations persist, prompting the introduction of Deep Waste, a mobile app employing computer vision to classify waste into ten types. Using transfer learning [@5288526], Deep Waste attains a remarkable 96.41% precision on the test set, functioning both online and offline.
 
-The model was trained with Tesla T4 GPU and uses EfficientNetV2 [@tan2021efficientnetv2] model as a base model with addition of agumentation layer. Adam was used as an optmizer with intital learning rate of 0.01. Which was later optmised using [optuna](https://optuna.org/) to create more accurate optimization parameters.
 
+# Workflow
+The app uses the garbage classification model obtained by applying transfer learning approach to the  garbage dataset [@suman_kunwar_2023]. This dataset consists of 10 categories, including plastic, metal, glass, biological, paper, battery, trash, cardboard, shoes and clothes. Few sample images from the dataset are shown in \autoref{fig:sample_images} and  the count of each classes are shown in \autoref{fig:garbage_dataset}.
+
+![Sampel images from dataset \label{fig:sample_images}](sample_images.png)
+
+![Garbage Dataset\label{fig:garbage_dataset}](garbage_dataset.png)
+
+With uneven number of images in each classes, random undersampling [@LIU2020105292] is employed to balance uneven class sizes by excluding some data from the larger dataset along with image augmentation methods to address class imbalance. The dataset is divided into 3 sets: train (80%), validation (10%), and test. The train set trains the model, the validation set tunes parameters, and the test set evaluates accuracy on new data.
+
+The model was trained with Tesla T4 GPU and uses EfficientNetV2 [@tan2021efficientnetv2] model as a base model with addition of agumentation layer. Adam [@kingma2017adam] was used as an optmizer with intital learning rate of 0.01. To prevent overfitting and improve generalization regularization techiques such as early stopping and dropout applied. The training and validation loss is shown in \autoref{fig:training_vs_val_loss} whereas \autoref{fig:training_vs_val_accuracy} shows training and validation accuracy on the performed [experiment](https://www.kaggle.com/code/sumn2u/garbage-classification-transfer-learning).
 
 ![Training and Validation loss at different epochs\label{fig:training_vs_val_loss}](training_vs_val_loss.png){width="50%"}
 
 ![Training and Validation accuracy at different epochs\label{fig:training_vs_val_accuracy}](training_vs_val_accuracy.png){width="50%"}
 
- The training and validation loss is shown in \autoref{fig:training_vs_val_loss} whereas \autoref{fig:training_vs_val_accuracy} shows training and validation accuracy on the performed [experiment](https://www.kaggle.com/code/sumn2u/garbage-classification-transfer-learning)
-The confusion matix of the modle is shown in  
-\autoref{fig:confusion_matrix}.
+The accuracy of the trained model at 20 epoch was found to be 96%. \autoref{fig:confusion_matrix} shows the confusion matix of the model and \autoref{fig:test_results} shows the test results with various sample test images.
 
 ![Confusion Matrix\label{fig:confusion_matrix}](confusion_matrix.png)
 
+The hyperparameters were optmised using [optuna](https://optuna.org/) to create more accurate results. \autoref{fig:deep_waste_app} shows the hyperparameter optmization over each trial. This optmized parameters were then fed into the model for training purpose. We found that the model performance was increased slighlty and the new accuracy is 96.41%.
+
+![Hyperparameters Optimization\label{fig:optimization}](optimization.png)
 
 
-# Workflow
-The app uses the Garbage Dataset [@suman_kunwar_2023] to recognize different types of waste materials including plastic, metal, glass, biological, paper, battery, trash, cardboard, shoes and clothes using Transfer Learning. The app also provides information on how to dispose of the waste and what recycling options are available. This approach can be customized to meet the user's specific needs, including local waste management regulations and individual household waste disposal habits and preferences. The home screen of the app is show in \autoref{fig:deep_waste_app}
+
+![Test Results\label{fig:test_results}](test_results.png)
+
+The classification model is then converted into a lite format, such as [TFLite](https://www.tensorflow.org/lite/guide), which enables it to be used on mobile devices with limited resources. This format allows for fast loading times, smaller size, and compatibility with various programming languages and platforms. \autoref{fig:deep_waste_app_workflow} describes the overall workflow of the app.
+
+![App Workflow [@kunwar_suman_2023]\label{fig:deep_waste_app_workflow}](app-workflow.png){width="100%"}
+
+The app also provides information on how to dispose of the waste and what recycling options are available. This approach can be customized to meet the user's specific needs, including local waste management regulations and individual household waste disposal habits and preferences. The home screen of the app is show in \autoref{fig:deep_waste_app}
 
 ![Deep Waste App Home Screen\label{fig:deep_waste_app}](deep-waste-app.png){width="100%"}
 
-The classification models are then converted into a lite format, such as [TFLite](https://www.tensorflow.org/lite/guide), which enables them to be used on mobile devices with limited resources. This format allows for fast loading times, smaller size, and compatibility with various programming languages and platforms. \autoref{fig:deep_waste_app_workflow} describes the overall workflow of the app.
 
-![App Workflow [@kunwar_suman_2023]\label{fig:deep_waste_app_workflow}](app-workflow.png){width="100%"}
+
+
 
 
 The app's user interface is designed to be user-friendly and intuitive, making it easy for anyone to use. It can also be used in conjunction with other waste management services such as waste collection and recycling services. In the progress tracker screen, users can monitor their progress towards rewards and receive tips on managing household waste, as shown in \autoref{fig:progress_tracker_screen}.
