@@ -35,7 +35,7 @@ Recent advancements leverage deep learning models to streamline waste sorting an
 Integration of machine learning models with mobile devices presents a promising avenue for precise waste management [@narayan_deepwaste:_2021]. The use of optimized deep learning techniques in an app demonstrates potential, achieving an accuracy of 0.881 in waste classification. However, limitations persist, prompting the introduction of Deep Waste, a mobile app employing computer vision to classify waste into ten types. Using transfer learning [@5288526], Deep Waste attains a remarkable 96.41% precision on the test set, functioning both online and offline.
 
 
-# Workflow
+# Model Development
 The app uses the garbage classification model obtained by applying transfer learning approach to the  garbage dataset [@suman_kunwar_2023]. This dataset consists of 10 categories, including plastic, metal, glass, biological, paper, battery, trash, cardboard, shoes and clothes. Few sample images from the dataset are shown in \autoref{fig:sample_images} and  the count of each classes are shown in \autoref{fig:garbage_dataset}.
 
 ![Sample images from dataset \label{fig:sample_images}](sample_images.png)
@@ -62,16 +62,16 @@ The hyperparameters were optmised using [optuna](https://optuna.org/) to create 
 
 ![Test results of sample images\label{fig:test_results}](test_results.png)
 
-The classification model is then converted into a lite format, such as [TFLite](https://www.tensorflow.org/lite/guide), which enables it to be used on mobile devices with limited resources. This format allows for fast loading times, smaller size, and compatibility with various programming languages and platforms. \autoref{fig:deep_waste_app_workflow} describes the overall workflow of the app.
+The classification model is converted into a lite format using [TFLite](https://www.tensorflow.org/lite/guide) to enable its usage on mobile devices with limited resources. This format ensures faster loading times, smaller size, and compatibility with various programming languages and platforms. It is then packed with the Deep Waste app and released for public usage.
+
+# App Workflow
+\autoref{fig:deep_waste_app_workflow} describes the overall workflow of the app. Users can upload an image from either their camera or gallery. The image is then analyzed by the embeded classification model. Additionally, the amount of carbon emissions resulting from the predicted output is calculated, and a reward is given to the user for effectively managing waste. In the event of an incorrect prediction, users can submit the image to be used for training the model on an annual basis. A leaderboard is generated based on the number of points earned.
 
 ![App Workflow [@kunwar_suman_2023]\label{fig:deep_waste_app_workflow}](app-workflow.png){width="100%"}
 
 The app also provides information on how to dispose of the waste and what recycling options are available. This approach can be customized to meet the user's specific needs, including local waste management regulations and individual household waste disposal habits and preferences. The home screen of the app is show in \autoref{fig:deep_waste_app}
 
 ![Deep Waste App Home Screen\label{fig:deep_waste_app}](deep-waste-app.png){width="100%"}
-
-
-
 
 
 
