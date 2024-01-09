@@ -50,13 +50,13 @@ The model was trained with Tesla T4 GPU and uses EfficientNetV2 [@tan2021efficie
 
 ![Training and Validation accuracy at different epochs\label{fig:training_vs_val_accuracy}](training_vs_val_accuracy.png){width="50%"}
 
-The accuracy of the trained model at 20 epoch was found to be 96%. \autoref{fig:confusion_matrix} shows the confusion matix of the model and \autoref{fig:test_results} shows the test results with various sample test images.
+The accuracy of the trained model at 20 epoch was found to be 96%. \autoref{fig:confusion_matrix} shows the confusion matix of the model.
 
 ![Confusion Matrix\label{fig:confusion_matrix}](confusion_matrix.png)
 
-The hyperparameters were optmised using [optuna](https://optuna.org/) to create more accurate results. \autoref{fig:deep_waste_app} shows the hyperparameter optmization over each trial. This optmized parameters were then fed into the model for training purpose. We found that the model performance was increased slighlty and the new accuracy is 96.41%.
+The hyperparameters were optmised using [optuna](https://optuna.org/) to create more accurate results. \autoref{fig:hyperparameters_optimization} shows the hyperparameter optmization over each trial. This optmized parameters were then fed into the model for training purpose. We found that the model performance was increased slighlty and the new accuracy is 96.41%. \autoref{fig:test_results} shows the test results with various sample test images.
 
-![Hyperparameters Optimization\label{fig:optimization}](optimization.png)
+![Hyperparameters Optimization\label{fig:hyperparameters_optimization}](optimization.png)
 
 
 
