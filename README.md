@@ -3,7 +3,8 @@
 [![Build Status](https://app.travis-ci.com/sumn2u/deep-waste-app.svg?branch=master)](https://app.travis-ci.com/sumn2u/deep-waste-app)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-[Updates: Jan 2024] The transfer learning study with updated dataset can be found [here](https://www.kaggle.com/code/sumn2u/garbage-classification-transfer-learning).
+
+[Updates: March 2024] The transfer learning study, featuring the updated dataset and a more efficient greener model, can be found [here](https://tecnoscientifica.com/journal/idwm/article/view/408).
 
 You can find the research paper utilized in this study [here](https://www.aimspress.com/article/doi/10.3934/ctr.2023008), descriptive analysis of the data [here](https://colab.research.google.com/drive/1JPwI75T_PMlTITO3tDmIhGEVsIREnGHa?usp=sharing) and the process of developing this app [here](https://medium.com/@sumn2u/deep-learning-approach-to-manage-household-waste-via-mobile-app-4186292b266b).
 
