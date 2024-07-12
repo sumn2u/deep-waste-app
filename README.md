@@ -17,10 +17,10 @@ Waste identification is a crucial step in the waste management process that enab
 
 In this app,  we have prepared a substantial collection of waste images and trained a machine learning model. The trained model is then installed on a mobile device, enabling real-time waste identification. By simply capturing an image of the waste with their mobile device, users can receive an instant classification of the waste into categories such as paper, plastic, glass, metal, and more, via the machine learning model.
 With this approach, one can have many advantages such as:
-- Convenience: By using mobile devices, waste identification can be performed anywhere, at any time, making it more accessible and convenient for users.
-- Increased Accuracy: Machine learning models are trained on large datasets, which can result in improved accuracy compared to manual waste classification.
-- Real-time Feedback: By using a mobile device, users receive instant feedback on the type of waste they are dealing with, allowing them to make informed decisions on how to properly manage the waste.
-- Data Collection: The data collected through mobile waste identification can be used to track waste generation and management efforts over time, helping to identify areas for improvement and set new waste reduction goals.
+- **Convenience**: By using mobile devices, waste identification can be performed anywhere, at any time, making it more accessible and convenient for users.
+- **Increased Accuracy**: Machine learning models are trained on large datasets, which can result in improved accuracy compared to manual waste classification.
+- **Real-time Feedback**: By using a mobile device, users receive instant feedback on the type of waste they are dealing with, allowing them to make informed decisions on how to properly manage the waste.
+- **Data Collection**: The data collected through mobile waste identification can be used to track waste generation and management efforts over time, helping to identify areas for improvement and set new waste reduction goals.
 
 ## Features 
 Here are some of its features:
@@ -70,12 +70,14 @@ The plan is to add a way to support internationlization. The language support wi
 [Google Play](https://play.google.com/store/apps/details?id=com.hai.deep_waste)
 
 [App Store](https://apps.apple.com/app/deep-waste-ai/id6445863514?platform=iphone)
-## Getting started
-1. Install Flutter. See https://flutter.io/setup/
 
-2. and clone this repository.
-3. Move to `deep-waste-app` directory.
-4. Run `flutter run` command.
+## Getting Started
+
+1. **Install Flutter:** Follow the instructions at [flutter.io/setup](https://flutter.io/setup/).
+2. **Clone this repository.**
+3. **Navigate to the `deep-waste-app` directory.**
+4. **Run the application:** Execute the command `flutter run`.
+
 
 ## Structure
 The main classes are under `lib` directory.
@@ -137,4 +139,4 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
-Feel free to reach out to us at sumn2u@gmail.com, to Suman directly if you have any questions or feedback! Hope you find this useful 💜
+Feel free to reach out to us at sumn2u (at) gmail.com, to Suman directly if you have any questions or feedback! Hope you find this useful 💜
