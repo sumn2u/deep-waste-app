@@ -1,18 +1,16 @@
-# Deep Waste
+# Deep Waste: Scan, identify, learn, manage, and earn rewards.
 
 [![Build Status](https://app.travis-ci.com/sumn2u/deep-waste-app.svg?branch=master)](https://app.travis-ci.com/sumn2u/deep-waste-app)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 
-[Updates: March 2024] The transfer learning study, featuring the updated dataset and a more efficient greener model, can be found [here](https://tecnoscientifica.com/journal/idwm/article/view/408).
 
-You can find the research paper utilized in this study [here](https://www.aimspress.com/article/doi/10.3934/ctr.2023008), descriptive analysis of the data [here](https://colab.research.google.com/drive/1JPwI75T_PMlTITO3tDmIhGEVsIREnGHa?usp=sharing) and the process of developing this app [here](https://medium.com/@sumn2u/deep-learning-approach-to-manage-household-waste-via-mobile-app-4186292b266b).
 
-## Summary
+D.Waste is as an open source AI-powered app that enables users to identify the type of waste they are trying to dispose of and provides guidance on how to do so correctly. The app offers a rewards program to incentivise proper waste management, and users can earn points for correctly identifying and disposing of waste.
+The app also provides educational resources on waste management and tracks the user's progress over time. Deep Waste is currently available on [App Store](https://apps.apple.com/us/app/deep-waste-ai/id6445863514?platform=iphone) the and [Google Play Store](https://play.google.com/store/apps/details?id=com.hai.deep_waste).
 
-An app that use [waste classification machine learning model](https://colab.research.google.com/drive/1yWqc8TRS0I21RdfHLPRTQIs37ANOx-Uq) to classify the waste and manage it effectively. It a standalone app and works without internet.
 
-<img alt="Instructions"  src="./app_banner.png">
+![D.Waste App](./app_banner.png)
 
 ## Background
 Waste identification is a crucial step in the waste management process that enables facilities to properly handle, recycle, and reduce their waste, while also ensuring compliance with regulations and tracking their progress over time. The integration of machine learning models with mobile devices can enhance the precision, ease, and effectiveness of waste management endeavors, as well as furnish valuable information for monitoring and decreasing waste.
@@ -40,9 +38,22 @@ Here are some of its features:
 ## How is it used?
 
 After training the AI model, we export it to TensorFlow Lite for mobile device compatibility. Using the app, users take or upload a picture of their waste, which the model then analyzes and provides suggestions for waste management. When users successfully manage their waste, they receive rewards. To enhance the accuracy of the system, users can submit incorrect predictions and specify the type of waste.
-## Data sources and AI methods
-[Torch](https://pytorch.org) and [Keras](https://keras.io/api/applications/#mobilenet) provide the pre-trained models [DenseNet121](https://keras.io/api/applications/densenet/#densenet121-function) and [MobileNet](https://keras.io/api/applications/mobilenet/), respectively, which we utilize for our image recognition models. These models were initially trained on ImageNet. We then fine-tuned MobileNet using the [TrashNet data collection](https://github.com/garythung/trashnet) to classify garbage material.
-Then resutlant model are then converted into `tflite` file, making it accessible for processing in mobile devices
+
+## Research papers
+
+Several research papers have been published to support this research. Here are a few of them:
+
+- [Deep Learning in Waste Management: A Brief Survey](https://www.preprints.org/manuscript/202407.0637/v1)
+- [Managing Household Waste Through Transfer Learning](https://tecnoscientifica.com/journal/idwm/article/view/408)
+- [MWaste: An app that uses deep learning to manage household waste](https://www.aimspress.com/article/doi/10.3934/ctr.2023008)
+
+
+## Data sources 
+
+We have created our own waste dataset to support the app which can be found in [Kaggle](https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2/). These dataset consists of waste images grouped into 10 classes (**metal**, **glass**, **biological**, **paper**, **battery**, **trash**, **cardboard**, **shoes**, **clothes**, and **plastic**). It is collected from various internet sources and through the app, labeled and manually verified. Data preprocessing activities including data cleaning, resizing, normalization, and file format handling were performed.
+
+![Waste Dataset](./dataset.png)
+
 
 ## Challenges
 This project classifies most of the waste but for some, it's still a problem. These images whose accuracy is less than 45 or with wrong prediction needs to be find into the model so that machine can learn from it. Besides that, some of the devices has problem running the model resulting crashing the whole application.
@@ -92,6 +103,8 @@ directory | description
 Contributions are always welcome. Feel free to report Issue or send Pull Request.
 
 ## Acknowledgments
+
+We extend our heartfelt thanks to all the users and contributors who provided invaluable feedback and suggestions. Your insights and the images you shared have been instrumental in enhancing our model. Thank you for your support and collaboration in making this project better.
 
 ## License
 ```
