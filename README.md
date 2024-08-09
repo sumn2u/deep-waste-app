@@ -64,7 +64,7 @@ The REST API of the deep waste model can be found [here](https://github.com/sumn
 ## What next?
 The plan is to add a way to support internationlization. The language support will help to reach more people and lessen the boundries. 
 ## Demo
-[![Deep Waste](https://img.youtube.com/vi/9hKCymDleco/0.jpg)](https://www.youtube.com/watch?v=9hKCymDleco "Deep Waste")
+[![Deep Waste](https://img.youtube.com/vi/Vl4lh_IZJe4/0.jpg)](https://www.youtube.com/watch?v=Vl4lh_IZJe4 "Deep Waste")
 
 ## Available on 
 [Google Play](https://play.google.com/store/apps/details?id=com.hai.deep_waste)
