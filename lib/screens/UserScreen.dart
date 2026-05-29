@@ -8,86 +8,99 @@ import 'package:deep_waste/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 class UserScreen extends StatefulWidget {
+  const UserScreen({Key? key}) : super(key: key);
+
   @override
-  _UserScreenState createState() => _UserScreenState();
+  State<UserScreen> createState() => _UserScreenState();
 }
 
 class _UserScreenState extends State<UserScreen> {
-  var _formKey = GlobalKey<FormState>();
-  String title;
+  final _formKey = GlobalKey<FormState>();
+
+  String? title;
   final List<String> errors = [];
 
-  void addError({String error}) {
-    if (!errors.contains(error))
+  void addError({required String error}) {
+    if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
       });
+    }
   }
 
-  void removeError({String error}) {
-    if (errors.contains(error))
+  void removeError({required String error}) {
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
-  Future addUser() async {
+  Future<void> addUser() async {
     final user = User(
-      name: title,
+      name: title ?? '',
       id: 1001,
     );
 
     await DatabaseManager.instance.insertUser(user);
   }
 
-  void validateAndSave() async {
-    final FormState form = _formKey.currentState;
-    if (form.validate()) {
+  Future<void> validateAndSave() async {
+    final form = _formKey.currentState;
+
+    if (form != null && form.validate()) {
+      form.save();
       await addUser();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+
+      if (!mounted) return;
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) =>  HomeScreen()),
+      );
     } else {
-      print('Form is invalid');
+      debugPrint('Form is invalid');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Scaffold(
-            backgroundColor: white,
-            body: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                    child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      SizedBox(height: getProportionateScreenHeight(75)),
-                      SizedBox(height: getProportionateScreenHeight(25)),
-                      Text(
-                        "Create a username that can be used for identification",
-                        style: TextStyle(
-                          fontSize: getProportionateScreenWidth(18),
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(15)),
-                      buildUserName(),
-                      FormError(errors: errors),
-                      SizedBox(height: getProportionateScreenHeight(15)),
-                      SizedBox(height: getProportionateScreenHeight(20)),
-                      DefaultButton(
-                        text: "Create",
-                        press: () async {
-                          validateAndSave();
-                        },
-                      ),
-                    ],
+      resizeToAvoidBottomInset: false,
+      backgroundColor: white,
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(75)),
+                  SizedBox(height: getProportionateScreenHeight(25)),
+                  Text(
+                    "Create a username that can be used for identification",
+                    style: TextStyle(
+                      fontSize: getProportionateScreenWidth(18),
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
                   ),
-                )))));
+                  SizedBox(height: getProportionateScreenHeight(15)),
+                  buildUserName(),
+                  FormError(errors: errors),
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  DefaultButton(
+                    text: "Create",
+                    press: validateAndSave,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   TextFormField buildUserName() {
@@ -96,25 +109,22 @@ class _UserScreenState extends State<UserScreen> {
       onSaved: (newValue) => title = newValue,
       onChanged: (value) {
         title = value;
+
         if (value.isNotEmpty) {
           removeError(error: kItemName);
         }
-        return null;
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (value == null || value.isEmpty) {
           addError(error: kItemName);
           return "";
         }
         return null;
       },
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        // labelText: "User name",
-        // hintText: "Enter user name",
-
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
     );

@@ -3,10 +3,10 @@ class OnboardingContents {
   final String image;
   final String desc;
 
-  OnboardingContents({
-    this.title,
-    this.image,
-    this.desc,
+  const OnboardingContents({
+    required this.title,
+    required this.image,
+    required this.desc,
   });
 }
 

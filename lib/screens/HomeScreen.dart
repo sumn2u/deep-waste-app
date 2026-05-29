@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:deep_waste/components/alert.dart';
 import 'package:deep_waste/components/categories.dart';
 import 'package:deep_waste/components/display_picture.dart';
@@ -18,66 +19,78 @@ import 'package:image_picker/image_picker.dart';
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home_screen";
 
-  HomeScreen({Key key, this.title}) : super(key: key);
-  final String title;
+  final String? title;
+
+  const HomeScreen({super.key, this.title});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  File _image;
+  File? _image;
   List<Item> items = [];
   bool isLoading = false;
-  User user;
+  User? user;
 
-  ImagePicker imagePicker = ImagePicker();
-  _imageFromCamera() async {
+  final ImagePicker imagePicker = ImagePicker();
+
+  Future<void> _imageFromCamera() async {
     try {
-      PickedFile capturedImage =
-          await imagePicker.getImage(source: ImageSource.camera);
-      final File imagePath = File(capturedImage.path);
+      final capturedImage =
+          await imagePicker.pickImage(source: ImageSource.camera);
+
       if (capturedImage == null) {
         showAlert(
-            bContext: context,
-            title: "Error choosing file",
-            content: "No file was selected");
-      } else {
-        setState(() {
-          _image = imagePath;
-        });
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    DisplayPicture(image: _image, items: items)));
+          bContext: context,
+          title: "Error choosing file",
+          content: "No file was selected",
+        );
+        return;
       }
+
+      final imagePath = File(capturedImage.path);
+
+      setState(() => _image = imagePath);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DisplayPicture(image: _image!, items: items),
+        ),
+      );
     } catch (e) {
       showAlert(
-          bContext: context, title: "Error capturing image file", content: e);
+        bContext: context,
+        title: "Error capturing image file",
+        content: e.toString(),
+      );
     }
   }
 
-  _imageFromGallery() async {
-    PickedFile uploadedImage =
-        await imagePicker.getImage(source: ImageSource.gallery);
-    final File imagePath = File(uploadedImage.path);
+  Future<void> _imageFromGallery() async {
+    final uploadedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (uploadedImage == null) {
       showAlert(
-          bContext: context,
-          title: "Error choosing file",
-          content: "No file was selected");
-    } else {
-      setState(() {
-        _image = imagePath;
-      });
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  DisplayPicture(image: _image, items: items)));
+        bContext: context,
+        title: "Error choosing file",
+        content: "No file was selected",
+      );
+      return;
     }
+
+    final imagePath = File(uploadedImage.path);
+
+    setState(() => _image = imagePath);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DisplayPicture(image: _image!, items: items),
+      ),
+    );
   }
 
   @override
@@ -86,14 +99,14 @@ class _HomeScreenState extends State<HomeScreen> {
     getItems();
     getUserInfo();
   }
-  
-  Future getUserInfo() async {
+
+  Future<void> getUserInfo() async {
     setState(() => isLoading = true);
     user = await DatabaseManager.instance.getUser();
     setState(() => isLoading = false);
   }
 
-  Future getItems() async {
+  Future<void> getItems() async {
     setState(() => isLoading = true);
     items = await DatabaseManager.instance.getItems();
     setState(() => isLoading = false);
@@ -102,58 +115,62 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     return Scaffold(
       backgroundColor: white,
       floatingActionButton: FabCircularMenu(
-          ringDiameter:  getProportionateScreenWidth(130.0),
-          ringColor: Color(0xff69c0dc),
-          ringWidth: getProportionateScreenWidth(40.0),
-          fabSize: getProportionateScreenWidth(44.0),
-          fabElevation: getProportionateScreenWidth(8.0),
-          fabCloseIcon: Icon(
-            Icons.close,
+        ringDiameter: getProportionateScreenWidth(130),
+        ringColor: const Color(0xff69c0dc),
+        ringWidth: getProportionateScreenWidth(40),
+        fabSize: getProportionateScreenWidth(44),
+        fabElevation: getProportionateScreenWidth(8),
+        fabCloseIcon: const Icon(Icons.close),
+        fabOpenIcon: const Icon(Icons.photo),
+        children: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.camera_alt_outlined),
+            onPressed: () {
+              if (user == null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserScreen()),
+                );
+              } else {
+                _imageFromCamera();
+              }
+            },
           ),
-          fabOpenIcon: Icon(
-            Icons.photo,
-          ),
-          children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.camera_alt_outlined),
-                onPressed: () async {
-                  if(user == null){
-                    Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UserScreen()));
-                  }else{
-                  _imageFromCamera();
-                  }
-                }),
-            IconButton(
-                icon: Icon(Icons.folder),
-                onPressed: () async {
-                  if(user == null){
-                    Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UserScreen()));
-                  }else{
-                  _imageFromGallery();
-                  }
-                })
-          ]),
+          IconButton(
+            icon: const Icon(Icons.folder),
+            onPressed: () {
+              if (user == null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserScreen()),
+                );
+              } else {
+                _imageFromGallery();
+              }
+            },
+          )
+        ],
+      ),
       body: SafeArea(
-          child: SingleChildScrollView(
-              child: Column(children: [
-        HomeHeader(user: user),
-        SizedBox(height: getProportionateScreenHeight(15)),
-        Categories(),
-        SizedBox(height: getProportionateScreenHeight(20)),
-        Progress(items: items),
-        SizedBox(height: getProportionateScreenHeight(20)),
-        History(),
-        SizedBox(width: getProportionateScreenWidth(20)),
-      ]))),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              HomeHeader(user: user),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              const Categories(),
+              SizedBox(height: getProportionateScreenHeight(20)),
+              Progress(items: items),
+              SizedBox(height: getProportionateScreenHeight(20)),
+              const History(),
+              SizedBox(width: getProportionateScreenWidth(20)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

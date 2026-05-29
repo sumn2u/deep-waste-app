@@ -3,5 +3,11 @@ class Reward {
   final String imageURL;
   final int points;
   final String name;
-  Reward({this.id, this.name, this.imageURL, this.points});
+
+  Reward({
+    required this.id,
+    required this.name,
+    required this.imageURL,
+    required this.points,
+  });
 }

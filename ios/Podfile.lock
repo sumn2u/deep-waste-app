@@ -1,54 +1,30 @@
 PODS:
   - Flutter (1.0.0)
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
-  - image_picker (0.0.1):
-    - Flutter
-  - sqflite (0.0.2):
-    - Flutter
-    - FMDB (>= 2.7.5)
   - TensorFlowLiteC (2.2.0)
   - tflite (1.1.2):
     - Flutter
     - TensorFlowLiteC
-  - url_launcher (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - image_picker (from `.symlinks/plugins/image_picker/ios`)
-  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - TensorFlowLiteC (= 2.2.0)
   - tflite (from `.symlinks/plugins/tflite/ios`)
-  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
   trunk:
-    - FMDB
     - TensorFlowLiteC
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  image_picker:
-    :path: ".symlinks/plugins/image_picker/ios"
-  sqflite:
-    :path: ".symlinks/plugins/sqflite/ios"
   tflite:
     :path: ".symlinks/plugins/tflite/ios"
-  url_launcher:
-    :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
-  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   TensorFlowLiteC: b3ab9e867b0b71052ca102a32a786555b330b02e
   tflite: 7acd11db0915e2d90ab90474413068568eb605f0
-  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: 75a4644aeccbc5c3f6a144d735a5a4b36a65140f
+PODFILE CHECKSUM: 1a162c2bdba99461dfb6ca6c151b819161b988e1
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.16.2

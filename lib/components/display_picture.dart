@@ -9,21 +9,25 @@ import 'package:deep_waste/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:tflite/tflite.dart';
+// import 'package:tflite_v2/tflite.dart';
 
 class DisplayPicture extends StatefulWidget {
   final File image;
   final List<Item> items;
-  const DisplayPicture({Key key, this.image, this.items}) : super(key: key);
+
+  const DisplayPicture({
+    Key? key,
+    required this.image,
+    required this.items,
+  }) : super(key: key);
+
   @override
-  _DisplayPictureState createState() => _DisplayPictureState(image: this.image);
+  State<DisplayPicture> createState() => _DisplayPictureState();
 }
 
 class _DisplayPictureState extends State<DisplayPicture> {
-  final File image;
-  _DisplayPictureState({this.image});
-  String prediction;
-  String predictedResult;
+  String? prediction;
+  String? predictedResult;
   bool predicted = false;
 
   @override
@@ -32,175 +36,206 @@ class _DisplayPictureState extends State<DisplayPicture> {
     loadModel();
   }
 
-  Future loadModel() async {
-    Tflite.close();
-    String absPathModelPath = "assets/models/garbage_model.tflite";
-    String classLabel = "assets/labels/labels.txt";
+  Future<void> loadModel() async {
+    // Tflite.close();
+    const String modelPath = "assets/models/garbage_model.tflite";
+    const String labelPath = "assets/labels/labels.txt";
+
+    // try {
+    //   await Tflite.loadModel(
+    //     model: modelPath,
+    //     labels: labelPath,
+    //   );
+    // } on PlatformException {
+    //   debugPrint("Couldn't load model");
+    // }
+  }
+
+  Future<void> updateItem(List<Item> items, String itemName) async {
     try {
-      await Tflite.loadModel(model: absPathModelPath, labels: classLabel);
-    } on PlatformException {
-      print("Couldn't load model");
+      final matchedItem = items.firstWhere(
+        (item) => item.name.toLowerCase() == itemName.toLowerCase(),
+      );
+
+      matchedItem.count++;
+      await DatabaseManager.instance.updateItem(matchedItem);
+    } catch (_) {
+      debugPrint("Item not found: $itemName");
     }
   }
 
-  Future updateItem(List<Item> items, String itemName) async {
-    var matchedItem = items.firstWhere(
-        (_item) => _item.name.toLowerCase() == itemName,
-        orElse: () => null);
-    matchedItem.count = matchedItem.count + 1;
-    await DatabaseManager.instance.updateItem(matchedItem);
-  }
-
-  uploadImage(context) async {
+  Future<void> uploadImage(BuildContext context) async {
     EasyLoading.show(status: 'Predicting...');
-    var output = await Tflite.runModelOnImage(
-        path: image.path,
-        imageMean: 0.0, // defaults to 117.0
-        imageStd: 255.0, // defaults to 1.0
-        numResults: 1, // defaults to 5
-        threshold: 0.2, // defaults to 0.1
-        asynch: true);
 
-    var result = output[0];
-    EasyLoading.dismiss();
-    var confidence = getNumber(result['confidence'], precision: 2);
-    setState(() {
-      predicted = true;
-      prediction = "Predicted ${result['label']} with ${confidence*100}% confidence.";
-      predictedResult = result['label'];
-    });
+    // final output = await Tflite.runModelOnImage(
+    //   path: widget.image.path,
+    //   imageMean: 0.0,
+    //   imageStd: 255.0,
+    //   numResults: 1,
+    //   threshold: 0.2,
+    //   asynch: true,
+    // );
 
-    // showAlert(bContext: context, title: "Done!", content: "Predicted ${result['label']} with $confidence% confidence.");
+    // EasyLoading.dismiss();
+
+    // if (output == null || output.isEmpty) return;
+
+    // final result = output.first;
+
+    // final confidence = getNumber(result['confidence'], precision: 2);
+
+    // setState(() {
+    //   predicted = true;
+    //   predictedResult = result['label'];
+    //   prediction =
+    //       "Predicted ${result['label']} with ${(confidence * 100).toStringAsFixed(2)}% confidence.";
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          bottomOpacity: 0.0,
-          elevation: 0.0,
-        ),
-        backgroundColor: white,
-        body: SafeArea(
-            child: SingleChildScrollView(
-                child: Column(children: [
-          Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20)),
-              child: predicted
-                  ? Container(
-                      width: double.infinity,
-                      margin:
-                          EdgeInsets.only(top: getProportionateScreenWidth(5)),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(20),
-                        vertical: getProportionateScreenWidth(15),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(3, 3), // changes position of shadow
-                          ),
-                          BoxShadow(
-                            color: Colors.black,
-                            offset: const Offset(0.0, 0.0),
-                            blurRadius: 0.0,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                      ),
-                      child: Row(children: <Widget>[
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text.rich(TextSpan(
-                                  style: TextStyle(color: Colors.black),
-                                  children: [
-                                    TextSpan(
-                                        text: "$prediction\n",
-                                        style: TextStyle(
-                                          fontSize:
-                                              getProportionateScreenWidth(16),
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                  ],
-                                )),
-                                Text.rich(TextSpan(
-                                  text:
-                                      "Put this item in the respective bin to earn coins. Click ♻️ to get rewards. \n\n For wrong prediction, help us to learn more by submitting waste image through contact link.",
-                                  style: TextStyle(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        elevation: 0,
+      ),
+      backgroundColor: white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(20),
+                ),
+                child: predicted
+                    ? Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.only(
+                          top: getProportionateScreenWidth(5),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(20),
+                          vertical: getProportionateScreenWidth(15),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(3, 3),
+                            ),
+                            const BoxShadow(
+                              color: Colors.black,
+                              offset: Offset.zero,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    prediction ?? "",
+                                    style: TextStyle(
+                                      fontSize:
+                                          getProportionateScreenWidth(16),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Put this item in the respective bin to earn coins.\n\n"
+                                    "For wrong predictions, help us improve by submitting waste images.",
+                                    style: TextStyle(
                                       color: Colors.black,
                                       fontSize:
-                                          getProportionateScreenWidth(14)),
-                                )),
-                              ]),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: InkWell(
-                            onTap: () async {
-                              await updateItem(widget.items, predictedResult);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Image.asset('assets/images/recycle.png',
-                                  height: 60, width: 120),
+                                          getProportionateScreenWidth(14),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ]))
-                  : null),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          Container(
-            width: getProportionateScreenWidth(280),
-            height: getProportionateScreenHeight(280),
-            decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(3, 3), // changes position of shadow
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () async {
+                                  if (predictedResult != null) {
+                                    await updateItem(
+                                      widget.items,
+                                      predictedResult!,
+                                    );
+                                  }
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>  HomeScreen(),
+                                    ),
+                                  );
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    'assets/images/recycle.png',
+                                    height: 60,
+                                    width: 120,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              Container(
+                width: getProportionateScreenWidth(280),
+                height: getProportionateScreenHeight(280),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(3, 3),
+                    ),
+                    const BoxShadow(
+                      color: Colors.black,
+                      offset: Offset.zero,
+                    ),
+                  ],
+                  image: DecorationImage(
+                    image: FileImage(widget.image),
+                    fit: BoxFit.fill,
                   ),
-                  BoxShadow(
-                    color: Colors.black,
-                    offset: const Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ),
-                ],
-                image: DecorationImage(
-                    image: FileImage(image), // picked file
-                    fit: BoxFit.fill)),
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
                   horizontal: getProportionateScreenWidth(20),
-                  vertical: getProportionateScreenHeight(30)),
-              child: !predicted
-                  ? DefaultButton(
-                      text: "Predict Waste",
-                      press: () async {
-                        uploadImage(context);
-                        // validateAndSave();
-                      },
-                    )
-                  : null)
-        ]))));
+                  vertical: getProportionateScreenHeight(30),
+                ),
+                child: !predicted
+                    ? DefaultButton(
+                        text: "Predict Waste",
+                        press: () => uploadImage(context),
+                      )
+                    : const SizedBox.shrink(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -20,12 +20,17 @@ class RewardNotifier extends ChangeNotifier {
         imageURL: "assets/images/Gold.png",
         points: 2000),
   ];
-  Reward activeReward;
+  Reward? activeReward;
 
   UnmodifiableListView<Reward> get rewards => UnmodifiableListView(_rewards);
 
-  Reward getActiveReward(point) {
-    return _rewards.firstWhere((_reward) => _reward.points >= point,
-        orElse: () => null);
+  Reward? getActiveReward(int point) {
+  try {
+    return _rewards.firstWhere(
+      (_reward) => _reward.points >= point,
+    );
+  } catch (_) {
+    return null;
   }
+}
 }

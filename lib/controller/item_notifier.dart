@@ -44,15 +44,24 @@ class ItemNotifier extends ChangeNotifier {
 
   UnmodifiableListView<Item> get items => UnmodifiableListView(_items);
 
-  Item getCollectedItem() {
-    return _items.firstWhere((_item) => _item.count > 0, orElse: () => null);
+  Item? getCollectedItem() {
+  try {
+    return _items.firstWhere((_item) => _item.count > 0);
+  } catch (_) {
+    return null;
   }
+}
 
-  void updateCount(itemName) {
-    var matchedItem = _items.firstWhere(
-        (_item) => _item.name.toLowerCase() == itemName,
-        orElse: () => null);
-    matchedItem.count = matchedItem.count + 1;
+  void updateCount(String itemName) {
+  try {
+    final matchedItem = _items.firstWhere(
+      (_item) => _item.name.toLowerCase() == itemName.toLowerCase(),
+    );
+
+    matchedItem.count++;
     notifyListeners();
+  } catch (_) {
+    // item not found
   }
+}
 }

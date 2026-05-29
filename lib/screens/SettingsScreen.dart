@@ -10,18 +10,20 @@ import 'package:url_launcher/url_launcher.dart';
 class SettingsScreen extends StatefulWidget {
   static String routeName = "/settings_screen";
   final User user;
+
   const SettingsScreen({
-    Key key,
-    @required this.user
+    Key? key,
+    required this.user,
   }) : super(key: key);
+
   @override
-  _SettingsState createState() => _SettingsState();
+  State<SettingsScreen> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<SettingsScreen> {
-  String titsle;
-  final String lorelEpsum = 'This is great product ...';
-  ExpandableController controller;
+  final String loremEpsum = 'This is great product ...';
+
+  late ExpandableController controller;
 
   @override
   void initState() {
@@ -35,54 +37,64 @@ class _SettingsState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  Future removeUser(userId) async {
+  Future<void> removeUser(int userId) async {
     await DatabaseManager.instance.deleteUser(userId);
   }
 
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint("Could not launch $url");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        bottomOpacity: 0.0,
         elevation: 0.0,
       ),
       backgroundColor: white,
-      body:  SingleChildScrollView(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: Column(
-        children: [
-          ProfileMenu(
-            text: "Help Center",
-            icon: "assets/icons/Question mark.svg",
-            press: () async {
-              var facebookUrl ="http://m.me/momsstorenepal";
-              await canLaunch(facebookUrl)? launch(facebookUrl):print("open facebook app link or do a snackbar with notification that there is no facebook installed");
-            },
-          ),
-          ProfileMenu(
-            text: "Leaderboard",
-            icon: "assets/icons/leaderboard.svg",
-            press: () async {
-              var leaderboardUrl ="https://momsstorenepal.com/leaderboard.html";
-              await canLaunch(leaderboardUrl)? launch(leaderboardUrl):print("open moms store nepal leaderboard link");
-            },
-          ),
-          ProfileMenu(
-            text: "Delete Account",
-            icon: "assets/icons/Log out.svg",
-            press: () async {
-              await removeUser(widget.user.id);
-              Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                })
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          children: [
+            ProfileMenu(
+              text: "Help Center",
+              icon: "assets/icons/Question mark.svg",
+              press: () async {
+                await _openUrl("http://m.me/momsstorenepal");
+              },
+            ),
+            ProfileMenu(
+              text: "Leaderboard",
+              icon: "assets/icons/leaderboard.svg",
+              press: () async {
+                await _openUrl(
+                    "https://momsstorenepal.com/leaderboard.html");
+              },
+            ),
+            ProfileMenu(
+              text: "Delete Account",
+              icon: "assets/icons/Log out.svg",
+              press: () async {
+                await removeUser(widget.user.id);
 
-          
-        ],
+                if (!mounted) return;
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) =>  HomeScreen()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-    )
     );
   }
 }

@@ -7,36 +7,61 @@ import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   static String routeName = "/splash_screen";
+
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  Animation<double> opacity;
-  AnimationController controller;
-  User user;
-  bool isLoading = false;
+  late AnimationController controller;
+  late Animation<double> opacity;
 
-  Future getUserInfo() async {
-    setState(() => isLoading = true);
-    user = await DatabaseManager.instance.getUser();
-    setState(() => isLoading = false);
-  }
+  User? user;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    getUserInfo();
+
+    _initUser();
+
     controller = AnimationController(
-        duration: Duration(milliseconds: 2500), vsync: this);
+      duration: const Duration(milliseconds: 2500),
+      vsync: this,
+    );
+
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(controller)
       ..addListener(() {
-        setState(() {});
+        if (mounted) setState(() {});
       });
+
     controller.forward().then((_) {
       navigationPage();
     });
+  }
+
+  Future<void> _initUser() async {
+    setState(() => isLoading = true);
+
+    user = await DatabaseManager.instance.getUser();
+
+    if (mounted) {
+      setState(() => isLoading = false);
+    }
+  }
+
+  void navigationPage() {
+    if (!mounted) return;
+
+    final Widget nextPage =
+        (!isLoading && user != null) ?  HomeScreen() :  OnboardingScreen();
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => nextPage),
+    );
   }
 
   @override
@@ -45,40 +70,41 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  void navigationPage() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) =>
-            !isLoading && user != null ? HomeScreen() : OnboardingScreen()));
-  }
-
+  @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/background.png'),
-              fit: BoxFit.cover)),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/background.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Container(
         decoration: BoxDecoration(color: transparentGreen),
         child: SafeArea(
-          child: new Scaffold(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
             body: Column(
               children: <Widget>[
                 Expanded(
                   child: Opacity(
-                      opacity: opacity.value,
-                      child: new Image.asset('assets/images/logo.png')),
+                    opacity: opacity.value,
+                    child: Image.asset('assets/images/logo.png'),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: RichText(
-                    text: TextSpan(
-                        style: TextStyle(color: Colors.black),
-                        children: [
-                          TextSpan(text: 'Powered by '),
-                          TextSpan(
-                              text: 'momsstorenepal.com',
-                              style: TextStyle(fontWeight: FontWeight.bold))
-                        ]),
+                const Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text.rich(
+                    TextSpan(
+                      style: TextStyle(color: Colors.black),
+                      children: [
+                        TextSpan(text: 'Powered by '),
+                        TextSpan(
+                          text: 'momsstorenepal.com',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

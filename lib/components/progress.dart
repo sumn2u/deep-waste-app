@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 class Progress extends StatelessWidget {
   final List<Item> items;
-  Progress({Key key, @required this.items}) : super(key: key);
-
+  const Progress({
+    Key? key,
+    required this.items,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
