@@ -14,6 +14,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    // 2. ADD THIS BLOCK RIGHT HERE:
+    kotlin {
+        jvmToolchain(17)
+    }
+    
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.deep_waste"

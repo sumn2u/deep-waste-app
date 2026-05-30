@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:deep_waste/components/default_button.dart';
 import 'package:deep_waste/constants/app_properties.dart';
 import 'package:deep_waste/constants/size_config.dart';
@@ -9,7 +10,8 @@ import 'package:deep_waste/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-// import 'package:tflite_v2/tflite.dart';
+import 'package:image/image.dart' as img; // Used to decode and resize the file
+import 'package:tflite_flutter/tflite_flutter.dart';
 
 class DisplayPicture extends StatefulWidget {
   final File image;
@@ -30,25 +32,40 @@ class _DisplayPictureState extends State<DisplayPicture> {
   String? predictedResult;
   bool predicted = false;
 
+  Interpreter? _interpreter;
+  List<String> _labels = [];
+  
+  // Adjust these to match your specific garbage collection model input constraints
+  static const int _inputImageSize = 224; 
+
   @override
   void initState() {
     super.initState();
     loadModel();
   }
 
+  @override
+  void dispose() {
+    _interpreter?.close(); // Free native memory safely
+    super.dispose();
+  }
+
   Future<void> loadModel() async {
-    // Tflite.close();
     const String modelPath = "assets/models/garbage_model.tflite";
     const String labelPath = "assets/labels/labels.txt";
 
-    // try {
-    //   await Tflite.loadModel(
-    //     model: modelPath,
-    //     labels: labelPath,
-    //   );
-    // } on PlatformException {
-    //   debugPrint("Couldn't load model");
-    // }
+    try {
+      // 1. Initialize the native interpreter
+      _interpreter = await Interpreter.fromAsset(modelPath);
+      
+      // 2. Read and parse plain-text line-by-line classification labels
+      final labelData = await rootBundle.loadString(labelPath);
+      _labels = labelData.split('\n').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+      
+      debugPrint("Model and labels loaded successfully.");
+    } catch (e) {
+      debugPrint("Error initializing tflite_flutter: $e");
+    }
   }
 
   Future<void> updateItem(List<Item> items, String itemName) async {
@@ -65,31 +82,99 @@ class _DisplayPictureState extends State<DisplayPicture> {
   }
 
   Future<void> uploadImage(BuildContext context) async {
+    if (_interpreter == null || _labels.isEmpty) {
+      EasyLoading.showError('Model not ready yet.');
+      return;
+    }
+
     EasyLoading.show(status: 'Predicting...');
 
-    // final output = await Tflite.runModelOnImage(
-    //   path: widget.image.path,
-    //   imageMean: 0.0,
-    //   imageStd: 255.0,
-    //   numResults: 1,
-    //   threshold: 0.2,
-    //   asynch: true,
-    // );
+    try {
+      // 1. Offload image loading and scaling to a separate thread execution boundary
+      final Uint8List imageBytes = await widget.image.readAsBytes();
+      final img.Image? originalImage = img.decodeImage(imageBytes);
 
-    // EasyLoading.dismiss();
+      if (originalImage == null) {
+        EasyLoading.dismiss();
+        return;
+      }
 
-    // if (output == null || output.isEmpty) return;
+      // 2. Resize to what the CNN input layer expects (typically 224x224)
+      final img.Image resizedImage = img.copyResize(
+        originalImage, 
+        width: _inputImageSize, 
+        height: _inputImageSize
+      );
 
-    // final result = output.first;
+      // 3. Construct a Float32 matrix array matching [1, Height, Width, Channels]
+      // Float32 is required for normalized inputs (values mapped between 0.0 and 1.0)
+      var inputTensor = List.generate(
+        1,
+        (_) => List.generate(
+          _inputImageSize,
+          (_) => List.generate(
+            _inputImageSize,
+            (_) => List.filled(3, 0.0),
+          ),
+        ),
+      );
 
-    // final confidence = getNumber(result['confidence'], precision: 2);
+      // Populate tensor array with RGB components divided by 255.0 to normalize
+      for (int y = 0; y < _inputImageSize; y++) {
+        for (int x = 0; x < _inputImageSize; x++) {
+          final pixel = resizedImage.getPixel(x, y);
+          inputTensor[0][y][x][0] = pixel.r / 255.0; // Red
+          inputTensor[0][y][x][1] = pixel.g / 255.0; // Green
+          inputTensor[0][y][x][2] = pixel.b / 255.0; // Blue
+        }
+      }
 
-    // setState(() {
-    //   predicted = true;
-    //   predictedResult = result['label'];
-    //   prediction =
-    //       "Predicted ${result['label']} with ${(confidence * 100).toStringAsFixed(2)}% confidence.";
-    // });
+      // 4. Formulate the explicit multi-dimensional layout container for results
+      // E.g., if you have 6 classes, this prepares a shape matrix structure of [1, 6]
+      var outputTensor = List.generate(1, (_) => List.filled(_labels.length, 0.0));
+
+      // 5. Run the native inference execution engine pass
+      _interpreter!.run(inputTensor, outputTensor);
+
+      // 6. Find the element index returning the highest distribution probability score
+      List<double> probabilities = outputTensor.first.cast<double>();
+      double maxProbability = -1.0;
+      int highestConfidenceIndex = 0;
+
+      for (int i = 0; i < probabilities.length; i++) {
+        if (probabilities[i] > maxProbability) {
+          maxProbability = probabilities[i];
+          highestConfidenceIndex = i;
+        }
+      }
+
+      EasyLoading.dismiss();
+
+      // Check if threshold parameter passes minimum confidence ceiling requirements
+      if (maxProbability < 0.2) {
+        setState(() {
+          predicted = true;
+          predictedResult = "Unknown";
+          prediction = "Could not confidently identify waste item.";
+        });
+        return;
+      }
+
+      final String finalLabel = _labels[highestConfidenceIndex];
+      final double confidence = getNumber(maxProbability, precision: 2);
+
+      setState(() {
+        predicted = true;
+        predictedResult = finalLabel;
+        prediction =
+            "Predicted $finalLabel with ${(confidence * 100).toStringAsFixed(2)}% confidence.";
+      });
+
+    } catch (e) {
+      EasyLoading.dismiss();
+      debugPrint("Inference failed: $e");
+      EasyLoading.showError('Prediction failed.');
+    }
   }
 
   @override
@@ -173,10 +258,11 @@ class _DisplayPictureState extends State<DisplayPicture> {
                                     );
                                   }
 
+                                  if (!mounted) return;
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) =>  HomeScreen(),
+                                      builder: (_) => HomeScreen(),
                                     ),
                                   );
                                 },

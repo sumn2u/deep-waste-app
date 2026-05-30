@@ -91,10 +91,23 @@ class _RewardsScreenState extends State<RewardsScreen> {
         : [...tips, if (tips.isNotEmpty) tips.first else "No tips available"];
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      // External screen padding for consistency across app screens
+      padding: EdgeInsets.symmetric(
+        horizontal: getProportionateScreenWidth(20),
+      ),
       child: Card(
         clipBehavior: Clip.antiAlias,
+        elevation: 0, // Clear native card elevation shadow to let custom BoxDecoration shadow display
+        color: Colors.transparent, // Prevents underlying white card canvas bleeds
         child: Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(
+            top: getProportionateScreenWidth(20),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20),
+            vertical: getProportionateScreenWidth(15),
+          ),
           decoration: BoxDecoration(
             color: const Color(0xff69c0dc),
             borderRadius: BorderRadius.circular(15),
@@ -117,53 +130,60 @@ class _RewardsScreenState extends State<RewardsScreen> {
               tapBodyToCollapse: true,
               tapBodyToExpand: true,
               iconColor: Colors.white,
+              headerAlignment: ExpandablePanelHeaderAlignment.center,
             ),
-            header: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 20, 20),
-              child: Text(
-                "Tips for managing $title waste",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(16),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            collapsed: Text(
-              safeTips.isNotEmpty ? safeTips.first : "",
+            header: Text(
+              "Tips for managing $title waste",
               style: TextStyle(
-                fontSize: getProportionateScreenWidth(14),
+                fontSize: getProportionateScreenWidth(16),
                 color: Colors.white,
+                fontWeight: FontWeight.w600,
               ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
             ),
-            expanded: Column(
-              children: safeTips.map((tip) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "\u2022",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(16),
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        tip,
-                        style: TextStyle(
-                          fontSize: getProportionateScreenWidth(14),
-                          color: Colors.white,
+            collapsed: Padding(
+              padding: EdgeInsets.only(top: getProportionateScreenWidth(10)),
+              child: Text(
+                safeTips.isNotEmpty ? safeTips.first : "",
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(14),
+                  color: Colors.white,
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            expanded: Padding(
+              padding: EdgeInsets.only(top: getProportionateScreenWidth(10)),
+              child: Column(
+                children: safeTips.map((tip) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: getProportionateScreenWidth(8)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "\u2022",
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(16),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip,
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(14),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             ),
           ),
         ),
