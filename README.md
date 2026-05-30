@@ -43,9 +43,11 @@ After training the AI model, we export it to TensorFlow Lite for mobile device c
 
 Several research papers have been published to support this research. Here are a few of them:
 
+- [DWaste: Greener AI for Waste Sorting Using Mobile and Edge Devices](https://www.techscience.com/jai/v8n1/65602)
 - [Deep Learning in Waste Management: A Brief Survey](https://www.preprints.org/manuscript/202407.0637/v1)
 - [Managing Household Waste Through Transfer Learning](https://tecnoscientifica.com/journal/idwm/article/view/408)
 - [MWaste: An app that uses deep learning to manage household waste](https://www.aimspress.com/article/doi/10.3934/ctr.2023008)
+- [Plastic Waste Detection Using Deep Learning: Insights from the WaDaBa Dataset](https://tecnoscientifica.com/journal/idwm/article/view/580)
 
 
 ## Data sources 
