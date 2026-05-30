@@ -67,7 +67,7 @@ class _SettingsState extends State<SettingsScreen> {
               text: "Help Center",
               icon: "assets/icons/Question mark.svg",
               press: () async {
-                await _openUrl("http://m.me/momsstorenepal");
+                await _openUrl("https://www.dwaste.live/support/");
               },
             ),
             ProfileMenu(
@@ -75,7 +75,7 @@ class _SettingsState extends State<SettingsScreen> {
               icon: "assets/icons/leaderboard.svg",
               press: () async {
                 await _openUrl(
-                    "https://momsstorenepal.com/leaderboard.html");
+                    "https://www.dwaste.live/");
               },
             ),
             ProfileMenu(

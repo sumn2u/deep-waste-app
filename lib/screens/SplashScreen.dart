@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen>
                       children: [
                         TextSpan(text: 'Powered by '),
                         TextSpan(
-                          text: 'momsstorenepal.com',
+                          text: 'dwaste.live',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
